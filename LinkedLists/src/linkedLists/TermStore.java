@@ -1,33 +1,41 @@
 package linkedLists;
 
-public class Term {
+public class TermStore {
 
     public int x;
     public int y;
 
-    public Term(int x, int y){
+    public TermStore(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }
 
-    public int getX(){
+    public int getX()
+    {
         return x;
     }
     
-    public void setX(int x){
+    public void setX(int x)
+    {
         this.x = x;
     }
     
-    public int getY(){
+    public int getY()
+    {
         return y;
     }
     
-    public void setY(int y){
+    public void setY(int y)
+    {
         this.y = y;
     }
     
-    public String toString(){
-        if(x != 0){
+    //Overrides toString method
+    public String toString()
+    {
+        if(x != 0)
+        {
             if(y > 1 || y < 0)
                 return x+"x^"+y;
             else if(y==1)

@@ -1,24 +1,22 @@
 package linkedLists;
-
-import java.util.AbstractList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class Polynomial {
-
-    LinkedList<Term> expression; 
-    ListIterator<Term> cursor;
+public class Polynomial 
+{
+    LinkedList<TermStore> expression; 
+    ListIterator<TermStore> cursor;
 
     public Polynomial(){
-        expression = new LinkedList<Term>();
+        expression = new LinkedList<TermStore>();
         cursor = expression.listIterator();
     }
 
-    public void sort(){
+    public void sort()
+    {
         cursor = expression.listIterator();
-
-        Term prev=cursor.next();
-        Term next;
+        TermStore prev=cursor.next();
+        TermStore next;
         while(cursor.hasNext()){
             if(cursor.next().getY() > prev.getY()){
                 next=cursor.previous();
@@ -31,128 +29,125 @@ public class Polynomial {
         }
     }
 
-    public void add(Term thing){
+    public void add(TermStore term)
+    {
         if(expression.size() >= 1)
             sort();
-
-
         boolean inserted = false;
         cursor = expression.listIterator();
-        Term existing;
+        TermStore existing;
         while(cursor.hasNext()){
             existing = cursor.next();
-            //if something with same exponent already exists, just add coefficient
-            if(existing.getY() == thing.getY()){
-                existing.setX(existing.getX()+thing.getX());
+            if(existing.getY() == term.getY())
+            {
+                existing.setX(existing.getX()+term.getX());
                 cursor.remove();
                 cursor.add(existing);
                 inserted = true;
                 return;
             }
-
-            //if past that exponent value, backtrack and add before. (assumes in order of highest to lowest exponents from left to right)
-            if(existing.getY() < thing.getY()){
+            if(existing.getY() < term.getY())
+            {
                 cursor.previous();
-                cursor.add(thing);
+                cursor.add(term);
                 inserted = true;
                 return;
             }
         }
         if(!inserted)
-            cursor.add(thing);
+            cursor.add(term);
     }
 
-    public void add(Polynomial thing){
-        cursor = thing.getList().listIterator();
-        while(cursor.hasNext()){
+    public void add(Polynomial poly)
+    {
+        cursor = poly.getList().listIterator();
+        while(cursor.hasNext())
             expression.add(cursor.next());
-        }
         sort();
     }
 
-    public void multiply(Term thing){
+    public void multiply(TermStore term)
+    {
         cursor = expression.listIterator();
-        Term current;
-        while(cursor.hasNext()){
+        TermStore current;
+        while(cursor.hasNext())
+        {
             current = cursor.next();
-            current.setX(current.getX() * thing.getX());
-            current.setY(current.getY() + thing.getY());
+            current.setX(current.getX() * term.getX());
+            current.setY(current.getY() + term.getY());
             cursor.previous();
             cursor.remove();
             cursor.add(current);
         }
     }
 
-    public LinkedList<Term> multiplyTerm(Term thing, LinkedList<Term> newThing){
-        ListIterator<Term> newC = newThing.listIterator();
-        Term current;
-        while(newC.hasNext()){
-            current = newC.next();
-            current = new Term(current.getX() * thing.getX(), current.getY() + thing.getY());
-            newC.remove();
-            newC.add(current);
-        }
-        return newThing;
-    }
-
-    public void multiply(Polynomial p){
-        ListIterator<Term> pIter = p.getList().listIterator();
+    public void multiply(Polynomial poly)
+    {
+    	LinkedList<TermStore> newExp = new LinkedList<TermStore>();
+        ListIterator<TermStore> pIter = poly.getList().listIterator();
         cursor = expression.listIterator();
-
-        LinkedList<Term> newExp = new LinkedList<Term>();
         while(cursor.hasNext()){
             newExp.addLast(cursor.next());
         }
-
         cursor = expression.listIterator();
-
-        LinkedList<Term> toAdd = new LinkedList<Term>();
-        
-        while(pIter.hasNext()){
+        LinkedList<TermStore> toAdd = new LinkedList<TermStore>();
+        while(pIter.hasNext())
+        {
             toAdd.addAll(multiplyTerm(pIter.next(), newExp));
             
             //reset copy of expression
             cursor = expression.listIterator();
-            newExp = new LinkedList<Term>();
+            newExp = new LinkedList<TermStore>();
             while(cursor.hasNext()){
                 newExp.addLast(cursor.next());
             }
         }
-
         expression = toAdd;
         sort();
     }
+    public LinkedList<TermStore> multiplyTerm(TermStore poly1, LinkedList<TermStore> poly2){
+        ListIterator<TermStore> newC = poly2.listIterator();
+        TermStore current;
+        while(newC.hasNext()){
+            current = newC.next();
+            current = new TermStore(current.getX() * poly1.getX(), current.getY() + poly1.getY());
+            newC.remove();
+            newC.add(current);
+        }
+        return poly2;
+    }
 
-
-    public LinkedList<Term> derivative(){
-        LinkedList<Term> ret = new LinkedList<Term>();
-
+    public LinkedList<TermStore> derivative()
+    {
+        LinkedList<TermStore> ret = new LinkedList<TermStore>();
         cursor = expression.listIterator();
-        Term current;
+        TermStore current;
         while(cursor.hasNext()){
             current = cursor.next();
             if(current.getY() != 0){
-                ret.add(new Term(current.getY()*current.getX(), current.getY()-1));
+                ret.add(new TermStore(current.getY()*current.getX(), current.getY()-1));
             }
 
         }
         return ret;
     }
 
-    public LinkedList<Term> getList(){
+    public LinkedList<TermStore> getList()
+    {
         return expression;
     }
 
-    public String toString(){
+    //@override
+    public String toString()
+    {
         cursor = expression.listIterator();
-        Term thing = cursor.next();
+        TermStore thing = cursor.next();
         String retString = thing.toString();
 
         while(cursor.hasNext()){
             thing = cursor.next();
             retString += " + "+thing.toString();
         }
-
         return retString;
     }
 
