@@ -6,10 +6,10 @@ public class ListFunHouse
 	//this method will print the entire list on the screen
    public static void print(ListNode list)
    {
-	   while(list.getNext() != null)
+	   while(list != null)
 	   {
 		   System.out.println(list.getValue());
-		   list.setNext(list.getNext());
+		   list = list.getNext();
 	   }
    }
 	   
@@ -18,10 +18,10 @@ public class ListFunHouse
 	public static int nodeCount(ListNode list)
 	{
 		int count=0;
-		while(list.getNext() != null)
+		while(list != null)
 		{
 			count++;
-			//TODO
+			list = list.getNext();
 		}
 		return count;
 	}
@@ -30,8 +30,12 @@ public class ListFunHouse
 	//new node to the list.  Once finished, the first node will occur twice.
 	public static void doubleFirst(ListNode list)
 	{
-		ListNode duplicate = new ListNode(list.getValue(), list.getNext());
-		list.setNext(duplicate);
+		while(list.getNext() != null)
+		{
+			ListNode duplicate = new ListNode(list.getValue(), list.getNext());
+			list = duplicate;
+
+		}
 	}
 
 	//this method will create a new node with the same value as the last node and add this

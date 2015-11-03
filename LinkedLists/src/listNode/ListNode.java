@@ -36,4 +36,11 @@ public class ListNode implements Linkable
 	{
 		nextListNode = (ListNode)next;
 	}
+	
+	public String toString()	
+	{
+		if(nextListNode == null)
+			return  "This: "+(String)listNodeValue+", "+"Next: null";
+		return "This: "+(String)listNodeValue+", "+"Next: "+(String)nextListNode.getValue();
+	}
 }
