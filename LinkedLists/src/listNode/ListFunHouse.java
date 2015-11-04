@@ -37,7 +37,7 @@ public class ListFunHouse
 	//new node at the end.  Once finished, the last node will occur twice.
 	public static void doubleLast(ListNode list)
 	{
-		while(list.getNext() != null)
+		while(list.getNext() != null )
 		{
 			list = list.getNext();
 		}
