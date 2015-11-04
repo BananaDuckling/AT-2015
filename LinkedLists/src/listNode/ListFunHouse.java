@@ -30,24 +30,18 @@ public class ListFunHouse
 	//new node to the list.  Once finished, the first node will occur twice.
 	public static void doubleFirst(ListNode list)
 	{
-		while(list.getNext() != null)
-		{
-			ListNode duplicate = new ListNode(list.getValue(), list.getNext());
-			list = duplicate;
-
-		}
+		list.setNext(new ListNode(list.getValue(), list.getNext()));
 	}
 
 	//this method will create a new node with the same value as the last node and add this
 	//new node at the end.  Once finished, the last node will occur twice.
 	public static void doubleLast(ListNode list)
 	{
-		ListNode prev = list;
 		while(list.getNext() != null)
 		{
-			prev=list.getNext();
+			list = list.getNext();
 		}
-		prev.setNext(new ListNode(prev.getValue(), null));
+		list.setNext(new ListNode(list.getValue(), null));
 	}
 		
 	//method skipEveryOther will remove every other node
@@ -69,11 +63,16 @@ public class ListFunHouse
 	//this method will set the value of every xth node in the list
 	public static void setXthNode(ListNode list, int x, Comparable value)
 	{
+		//sets another reference to ListNode list
+		ListNode l = list;
+		
 		int count=1;
+		
 		while(list.getNext() != null)
 		{
-			if(count == x)
-				list.setValue(value);
+			if(count % x == 0)
+				l.setValue(value);
+			l = l.getNext();
 			count++;
 		}
 	}	
@@ -82,5 +81,16 @@ public class ListFunHouse
 	public static void removeXthNode(ListNode list, int x)
 	{
 		int count=1;
+		ListNode l = list;
+		ListNode previous = null;
+		
+		while(list != null)
+		{
+			if(count % x == 0)
+				previous.setNext(list.getNext());
+		}
+		previous = list;
+		list = list.getNext();
+		count++;
 	}		
 }
