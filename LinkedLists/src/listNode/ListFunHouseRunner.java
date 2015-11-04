@@ -29,7 +29,6 @@ public class ListFunHouseRunner
 		out.println();		
 
 		ListFunHouse.doubleFirst(z);	
-		System.out.println("Hi");
 		out.println("\nList values after calling doubleFirst\n");							
 		ListFunHouse.print(z);
 		out.println();	 

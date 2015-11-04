@@ -3,7 +3,7 @@ package listNode;
 public class ListNode implements Linkable
 {
 	private Comparable listNodeValue;
-	private ListNode nextListNode;
+	private ListNode nextListNode, previousListNode;
 
 	public ListNode()
 	{
@@ -11,9 +11,10 @@ public class ListNode implements Linkable
 		nextListNode = null;
 	}
 
-	public ListNode(Comparable value, ListNode next)
+	public ListNode(Comparable value, ListNode previous, ListNode next)
 	{
 		listNodeValue=value;
+		previousListNode = previous;
 		nextListNode=next;
 	}
 

@@ -64,15 +64,13 @@ public class ListFunHouse
 	public static void setXthNode(ListNode list, int x, Comparable value)
 	{
 		//sets another reference to ListNode list
-		ListNode l = list;
-		
 		int count=1;
 		
-		while(list.getNext() != null)
+		while(list != null)
 		{
 			if(count % x == 0)
-				l.setValue(value);
-			l = l.getNext();
+				list.setValue(value);
+			list = list.getNext();
 			count++;
 		}
 	}	
@@ -88,9 +86,9 @@ public class ListFunHouse
 		{
 			if(count % x == 0)
 				previous.setNext(list.getNext());
+			count++;
+			previous = list;
+			list = list.getNext();
 		}
-		previous = list;
-		list = list.getNext();
-		count++;
 	}		
 }
