@@ -3,8 +3,9 @@
 //Date -
 //Class - 
 //Lab  -  
-package listNode;
+package listNode2;
 import static java.lang.System.*;
+import listNode.ListNode;
 
 public class ListFunHouseTwo
 {

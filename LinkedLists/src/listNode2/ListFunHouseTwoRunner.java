@@ -3,8 +3,9 @@
 //Date -
 //Class - 
 //Lab  -
-package listNode;
+package listNode2;
 import java.util.*;
+
 import static java.lang.System.*;
 
 public class ListFunHouseTwoRunner

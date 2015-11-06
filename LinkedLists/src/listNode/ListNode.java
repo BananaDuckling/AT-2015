@@ -8,6 +8,7 @@ public class ListNode implements Linkable
 	public ListNode()
 	{
 		listNodeValue = null;
+		previousListNode = null;
 		nextListNode = null;
 	}
 
@@ -21,6 +22,11 @@ public class ListNode implements Linkable
 	public Comparable getValue()
 	{
 		return listNodeValue;
+	}
+	
+	public ListNode getPrevious()
+	{
+		return previousListNode;
 	}
 
 	public ListNode getNext()
@@ -36,6 +42,11 @@ public class ListNode implements Linkable
 	public void setNext(Linkable next)
 	{
 		nextListNode = (ListNode)next;
+	}
+	
+	public setPrevious(Linkable previous)
+	{
+		
 	}
 	
 	public String toString()	
