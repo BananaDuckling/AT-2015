@@ -5,16 +5,11 @@
 //Lab  -  
 package listNode2;
 import static java.lang.System.*;
-import listNode.ListNode;
+import listNode2.ListNode;
 
 public class ListFunHouseTwo
 {
-	private ListNode theList;
-	
-	public ListFunHouseTwo()
-	{
-		theList = new ListNode();
-	}
+	private ListNode theList = null;
 	
 	public void add(Comparable data)
 	{
@@ -22,15 +17,15 @@ public class ListFunHouseTwo
 	}
 	
 	//this method will return the number of nodes present in list
-	public int nodeCount(ListNode list)
+	public int nodeCount()
 	{
+		ListNode list = theList;
 		int count=0;
-		while(list != null)
+		while(theList != null)
 		{
 			count++;
 			list = list.getNext();
 		}
-	
 		return count;
 	}
 		
@@ -38,18 +33,20 @@ public class ListFunHouseTwo
 	//new node at the front of the list.  Once finished, the first node will occur twice.
 	public void doubleFirst()
 	{
-
-
-				
+		ListNode list = theList;
+		list.setNext(new ListNode(list.getValue(), list.getNext()));
 	}
 
 	//this method will create a new node with the same value as the last node and add this
 	//new node at the end.  Once finished, the last node will occur twice.
 	public void doubleLast()
 	{
-
-
-		
+		ListNode list = theList;
+		while(list.getNext() != null )
+		{
+			list = list.getNext();
+		}
+		list.setNext(new ListNode(list.getValue(), null));
 	}
 	
 	//method skipEveryOther will remove every other node
