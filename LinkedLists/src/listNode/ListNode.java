@@ -44,9 +44,9 @@ public class ListNode implements Linkable
 		nextListNode = (ListNode)next;
 	}
 	
-	public setPrevious(Linkable previous)
+	public void setPrevious(ListNode previous)
 	{
-		
+		previousListNode = previous;
 	}
 	
 	public String toString()	

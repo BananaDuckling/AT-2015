@@ -13,22 +13,25 @@ public class ListFunHouseTwo
 	
 	public ListFunHouseTwo()
 	{
-
+		theList = new ListNode();
 	}
 	
 	public void add(Comparable data)
 	{
-
+		
 	}
 	
 	//this method will return the number of nodes present in list
-	public int nodeCount()
+	public int nodeCount(ListNode list)
 	{
-   	int count=0;
-
-
+		int count=0;
+		while(list != null)
+		{
+			count++;
+			list = list.getNext();
+		}
 	
-   	return count;
+		return count;
 	}
 		
 	//this method will create a new node with the same value as the first node and add this
