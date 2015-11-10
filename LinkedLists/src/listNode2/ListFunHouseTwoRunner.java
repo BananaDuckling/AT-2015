@@ -6,7 +6,7 @@
 package listNode2;
 import java.util.*;
 
-import static java.lang.System.*;
+import java.lang.System.*;
 
 public class ListFunHouseTwoRunner
 {
@@ -23,37 +23,37 @@ public class ListFunHouseTwoRunner
 		funHouse.add("up");		       		
 		funHouse.add("over");
 			 			
-		out.println("Original list values\n");	
+		System.out.println("Original list values\n");	
 		System.out.println(funHouse);
-		out.println("\n");
+		System.out.println("\n");
 		
-		out.println("num nodes = " + funHouse.nodeCount());
+		System.out.println("num nodes = " + funHouse.nodeCount());
 
-		out.println("\nList values after calling nodeCount\n");	
+		System.out.println("\nList values after calling nodeCount\n");	
 		System.out.println(funHouse);
-		out.println();		
+		System.out.println();		
 
 		funHouse.doubleLast();		
-		out.println("\nList values after calling doubleLast\n");							
+		System.out.println("\nList values after calling doubleLast\n");							
 		System.out.println(funHouse);
-		out.println();				
+		System.out.println();				
 
 
 		funHouse.doubleFirst();		
-		out.println("\nList values after calling doubleFirst\n");							
+		System.out.println("\nList values after calling doubleFirst\n");							
 		System.out.println(funHouse);
-		out.println();	
+		System.out.println();	
 				
 		
 		funHouse.removeXthNode(2);		
-		out.println("\nList values after calling removeXthNode(2)\n");					
+		System.out.println("\nList values after calling removeXthNode(2)\n");					
 		System.out.println(funHouse);
-		out.println();			
+		System.out.println();			
 		
 		
 		funHouse.setXthNode(2,"one");		
-		out.println("\nList values after calling setXthNode(2,one)\n");										
+		System.out.println("\nList values after calling setXthNode(2,one)\n");										
 		System.out.println(funHouse);
-		out.println();				
+		System.out.println();				
 	}
 }

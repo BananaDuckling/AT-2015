@@ -4,7 +4,7 @@
 //Class - 
 //Lab  -  
 package listNode2;
-import static java.lang.System.*;
+import java.lang.System.*;
 import listNode2.ListNode;
 
 public class ListFunHouseTwo
@@ -27,13 +27,15 @@ public class ListFunHouseTwo
 	   
 	public void add(Comparable data)
 	{
-		if(theList == null)
+		 // the list is null, therefore temp is null
+		if(theList == null) // null is not null, therefore this if is false
 		{
 			theList = new ListNode(data, null);
 			theList.setNext(theList);
 		}
 		else
 		{
+			ListNode temp = theList;
 			ListNode first = theList, last = theList;
 			
 			theList = theList.getNext();
