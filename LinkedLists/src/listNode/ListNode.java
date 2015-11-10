@@ -8,14 +8,12 @@ public class ListNode implements Linkable
 	public ListNode()
 	{
 		listNodeValue = null;
-		previousListNode = null;
 		nextListNode = null;
 	}
 
-	public ListNode(Comparable value, ListNode previous, ListNode next)
+	public ListNode(Comparable value, ListNode next)
 	{
 		listNodeValue=value;
-		previousListNode = previous;
 		nextListNode=next;
 	}
 
