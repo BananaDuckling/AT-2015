@@ -30,10 +30,9 @@ public class CDStack {
 	}
 	public void printCd()
 	{
-		CDStack stack = new CDStack();
-		while(stack.isEmpty())
+		while(!myStack.empty())
 		{
-			System.out.println(stack.playNextCd());
+			System.out.println(myStack.pop() + " ");
 		}
 	}
 	
