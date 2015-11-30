@@ -83,4 +83,10 @@ public class CDStack {
 		System.out.println(temp);
 	}
 	
+	public void binary(int x)
+	{
+		if(x == 1 || x == 0)
+			return
+	}
+	
 }
