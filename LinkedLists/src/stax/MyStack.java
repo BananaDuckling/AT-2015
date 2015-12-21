@@ -1,5 +1,6 @@
 package stax;
 import java.util.ArrayList;
+import java.util.Stack;
 public class MyStack {
 	public static void main(String[] args)
 	{
@@ -49,10 +50,10 @@ public class MyStack {
 	
 	public int search(Object o)
 	{
-		for(int x = list.size(); x >=1 ; x ++)
+		for(int x = 0; x < list.size() ; x ++)
 		{
-			if(o.equals(list.get(x-2)))
-				return x;
+			if(o.equals(list.get(x)))
+				return list.size() - x;
 		}
 		return -1;
 	}
