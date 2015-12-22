@@ -69,21 +69,24 @@ public class StackMethods
 
 	public static Stack<String> removeEveryOther(Stack<String> one)
 	{
-		Stack ret = new Stack();
-		ArrayList<String> a = new ArrayList<String>();
+		Stack ret = new Stack(), temp = new Stack();
 		int count = 0;
+		
 		while (!one.isEmpty()) {
-			if (count / 2 == 0) {
+			if (count % 2 == 0) //if count is even
+			{
 				count++;
-				a.add(one.pop());
-			} else {
-				count--;
+				temp.push(one.pop());
+			} 
+			else //count is odd
+			{
+				count++;
 				one.pop();
 			}
 		}
-		for (int x = one.size() - 1; x >= 0; x--) {
-			ret.push(a.get(x));
-			System.out.println(a.get(x));
+		while(!temp.isEmpty())
+		{
+			ret.push(temp.pop());
 		}
 		return ret;
 	}
