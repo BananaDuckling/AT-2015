@@ -4,48 +4,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class DrawStuff extends JComponent {
-	private myQueue q = new myQueue();
+public class DrawStuff {
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
 	{
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
+		frame.setTitle("crappy draw thing");
 	    final int FRAME_WIDTH = 800;
 	    final int FRAME_HEIGHT = 800;
-	    frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-	    frame.setTitle("crappy draw thing");
+	    Canvas c = new Canvas();
+	    c.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	public void draw(Graphics2D gr)
-	{
-		Graphics2D g = (Graphics2D) gr;
-		ArrayList a = new ArrayList();
-		int x1= 0, x2=0, y1=0, y2=0;
-		a.add(x1);
-		a.add(x2);
-		a.add(y1);
-		a.add(y2);
-		
-		for(Object i : a)
-		{
-			i = Math.random()*800;
+	    Graphics g = c.getGraphics();
+	    g.setColor(new Color(255, 255, 255));
+	    Queue<Line2D> q = new LinkedList<Line2D>();
+	    int x1 = (int)Math.random() * 800;
+    	int y1 = (int)Math.random() * 800;
+	    try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		g.draw(new Line2D.Double(x1, x2, y1, y2));
-	}
-	public void draw(Graphics2D gr, int x1, int y1)
-	{
-		ArrayList a = new ArrayList();
-		Graphics2D g = gr;
-		int x2=0, y2=0;
-		a.add(x2);
-		a.add(y2);
-		
-		for(Object i : a)
-		{
-			i = Math.random()*800;
-		}
-		g.draw(new Line2D.Double(x1, x2, y1, y2));
+	    for(int x = 0; x < 10; x++)
+	    { 
+	    	int x2 = (int)Math.random() * 800;
+	    	int y2 = (int)Math.random() * 800;
+	    	q.offer(new Line2D.Double(x1, y1, x2 , y2));
+	    	g.drawLine(x1,  y2, x2, y2);
+	    	x1 = x2;
+	    	y1 = y2;
+	    	Thread.sleep(500);
+	    }
+	    g.setColor(new Color(0, 0, 0));
+	    
+	    
 	}
 }
