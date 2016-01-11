@@ -3,9 +3,9 @@ package priorityQueue;
 public class Monster implements Comparable<Monster> {
 	private int height, weight, age;
 	
-	public Monster()
+	public String toString()
 	{
-		
+		return "height: "+height+"\nweight: "+weight+"\nage: "+age+"\n";
 	}
 	
 	public Monster(int h, int w, int a)
