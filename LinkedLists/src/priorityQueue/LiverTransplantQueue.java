@@ -1,10 +1,10 @@
 package priorityQueue;
 import java.util.*;
 public class LiverTransplantQueue {
-	private ArrayList a;
+	private ArrayList<Patient> a;
 	public LiverTransplantQueue()
 	{
-		a = new ArrayList();
+		a = new ArrayList<Patient>();
 	}
 	
 	public boolean isEmpty()
@@ -12,22 +12,22 @@ public class LiverTransplantQueue {
 		return a.isEmpty();
 	}
 	
-	public void add(Object o)
+	public void add(Patient p)
 	{
 		 for(int x = 0; x < a.size(); x++)
 		 {
-			 if(a.get(x).compareTo(o));
+			 if(a.get(x).compareTo(p)>0);
 		 }
 	}
 	
-	public Object poll()
+	public Patient poll()
 	{
-		
+		return a.remove(0);
 	}
 	
-	public Object peek()
+	public Patient peek()
 	{
-		
+		return a.get(0);
 	}
 	
 	public int size();
