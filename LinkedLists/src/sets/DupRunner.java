@@ -12,13 +12,13 @@ public class DupRunner
 		String b = "one two three one two three six seven one two";
 		String c = "1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 6";
 		
-		u.getUniques(a);
-		u.getDupes(a);
+		System.out.println(u.getUniques(a));
+		System.out.println(u.getDupes(a));
 		
-		u.getUniques(b);
-		u.getDupes(b);
+		System.out.println(u.getUniques(b));
+		System.out.println(u.getDupes(b));
 		
-		u.getUniques(c);
-		u.getDupes(c);
+		System.out.println(u.getUniques(c));
+		System.out.println(u.getDupes(c));
 	}
 }
