@@ -10,8 +10,8 @@ public class OddRunner
 	public static void main( String args[] ) throws IOException
 	{
 		String homeLoc = "C:/Users/Justin/Downloads/oddevendata.dat";
-		String schoolLoc = "C:/Users/16jc0080/Downloads/oddevendata.DAT";
-		File file = new File(homeLoc);
+		String schoolLoc = "C:/Users/16jc0080/Downloads/oddevendata.dat";
+		File file = new File(schoolLoc);
 		Scanner s = new Scanner(file);
 		String str = "";
 		OddEvenSets o = new OddEvenSets();
