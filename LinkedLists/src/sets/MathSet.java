@@ -70,12 +70,24 @@ public class MathSet
 
 	public Set<Integer> differenceBMinusA()
 	{
-		return null;
+		Set ret = new TreeSet();
+		Set temp = new TreeSet();
+		for(Integer i:one)
+			temp.add(i);
+		for(Integer i:two)
+		{
+			if(temp.add(i))
+				ret.add(i);
+		}
+		return ret;
 	}
 	
 	public Set<Integer> symmetricDifference()
 	{		
-		return null;
+		Set ret = new TreeSet();
+		ret.addAll(differenceBMinusA());
+		ret.addAll(differenceAMinusB());
+		return ret;
 	}	
 	
 	public String toString()
