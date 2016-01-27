@@ -42,4 +42,9 @@ public class OddEvenSets
 			}
 		}
 	}
+	public void clear()
+	{
+		odds.clear();
+		evens.clear();
+	}
 }

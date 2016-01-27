@@ -20,6 +20,7 @@ public class OddRunner
 		{
 			o.OddEvenSets(s.nextLine());
 			System.out.println(o);
+			o.clear();
 		}
 	}
 	
