@@ -22,8 +22,18 @@ public class MathSet
 
 	public MathSet(String o, String t)
 	{
-		one.add(Integer.valueOf(o));
-		two.add(Integer.valueOf(t));
+		one = new TreeSet();
+		two = new TreeSet();
+		String[] one = o.split(" ");
+		String[] two = t.split(" ");
+		for(int x = 0; x < one.length; x++)
+		{
+			this.one.add(Integer.valueOf(one[x]));
+		}
+		for(int x = 0; x < two.length; x++)
+		{
+			this.two.add(Integer.valueOf(two[x]));
+		}
 	}
 
 	public Set<Integer> union()
@@ -41,15 +51,20 @@ public class MathSet
 	{
 		Set ret = new TreeSet();
 		Set temp = new TreeSet();
-		for(Integer i:one)
+		for(Integer i:this.one)
+		{
+			//false if already in list
+			if(!temp.add(i))
+			{
+				ret.add(i);
+			}
+		}
+		for(Integer i:this.two)
 		{
 			if(!temp.add(i))
+			{
 				ret.add(i);
-		}
-		for(Integer i:two)
-		{
-			if(!ret.add(i))
-				ret.add(i);
+			}
 		}
 		return ret;
 	}

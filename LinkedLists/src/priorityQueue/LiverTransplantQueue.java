@@ -17,6 +17,7 @@ public class LiverTransplantQueue {
 		 for(int x = 0; x < a.size(); x++)
 		 {
 			 if(a.get(x).compareTo(p)>0);
+			 	a.add(x, p);
 		 }
 	}
 	
@@ -30,8 +31,8 @@ public class LiverTransplantQueue {
 		return a.get(0);
 	}
 	
-	public int size();
+	public int size()
 	{
-		
+		return a.size();
 	}
 }

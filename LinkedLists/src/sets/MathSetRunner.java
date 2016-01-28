@@ -20,11 +20,13 @@ public class MathSetRunner
 		while(s.hasNextLine())
 		{
 			MathSet set = new MathSet(s.nextLine(), s.nextLine());
-			System.out.println(set.union());
-			System.out.println(set.intersection());
-			System.out.println(set.differenceAMinusB());
-			System.out.println(set.differenceBMinusA());
-			System.out.println(set.symmetricDifference());
+			System.out.print(set);
+			System.out.println("Union: "+set.union());
+			System.out.println("intersection: "+set.intersection());
+			System.out.println("A minus B " +set.differenceAMinusB());
+			System.out.println("B minus A "+set.differenceBMinusA());
+			System.out.println("Symmetric difference "+set.symmetricDifference());
+			System.out.println();
 		}
 		
 	}
