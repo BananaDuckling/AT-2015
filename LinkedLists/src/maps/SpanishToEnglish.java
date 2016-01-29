@@ -1,4 +1,4 @@
-
+package maps;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Scanner;
@@ -23,13 +23,13 @@ public class SpanishToEnglish
 	public String translate(String sent)
 	{
 		Scanner chop = new Scanner(sent);
+		String[] s = sent.split(" ");
 		String output ="";
-
-
-
-
-
-
+		
+		for(int x = 0; x < s.length; x++)
+		{
+			output += pairs.get(s[x]);
+		}
 		return output;
 	}
 
