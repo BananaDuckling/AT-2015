@@ -33,7 +33,7 @@ public class Relatives
 		Set<String> set = map.get(person);
 		for(String s : set)
 		{
-			ret += s;
+			ret += s+" ";
 		}
 		return ret;
 	}
@@ -42,14 +42,14 @@ public class Relatives
 	public String toString()
 	{
 		String output="";
-		
-
-
-
-
-
-
-
+		Set s = map.keySet();
+		for(Map.Entry<String, Set<String>> entry:map.entrySet())
+		{
+			output += entry.getKey() + " is related to ";
+			for(String str : entry.getValue())
+				output += str+" ";
+			output+="\n";
+		}
 		return output;
 	}
 }

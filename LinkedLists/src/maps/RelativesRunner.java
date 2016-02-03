@@ -8,6 +8,13 @@ public class RelativesRunner
 {
 	public static void main( String args[] ) throws IOException
 	{
-		//add more test cases		
+		Relatives r = new Relatives();
+		File file = new File();
+		Scanner k = new Scanner(file);
+		
+		while(k.hasNextLine())
+		{
+			
+		}
 	}
 }
