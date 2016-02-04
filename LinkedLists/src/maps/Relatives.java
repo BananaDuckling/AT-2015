@@ -19,11 +19,20 @@ public class Relatives
 	{
 		String[] personRelative = line.split(" ");
 		Set<String> temp = new TreeSet<String>();
-		temp.add(personRelative[1]);
+		if(personRelative.length >= 2)
+			temp.add(personRelative[1]);
+		
+		//if map doesn't already have a person of this name
 		if(!map.containsKey(personRelative[0]))
 			map.put(personRelative[0], temp);
 		else
-			map.get(personRelative[0]).add(personRelative[1]);
+		{
+			if(personRelative.length >= 2)
+				//if there was a relative in the input string (line), and the person
+				//already exists as a key, add a relative as a value.
+				map.get(personRelative[0]).add(personRelative[1]);
+			
+		}
 	}
 
 
