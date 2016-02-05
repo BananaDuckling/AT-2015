@@ -24,8 +24,12 @@ public class Acronyms
 		
 		for(int x = 0; x < arr.length; x++)
 		{
-			if(acronymTable.get(arr[x]))
+			if(acronymTable.get(arr[x]) == null)
+				output += arr[x]+" ";
+			else
+				output += acronymTable.get(arr[x])+" ";
 				
+			return output;
 		}
 
 		return output;
