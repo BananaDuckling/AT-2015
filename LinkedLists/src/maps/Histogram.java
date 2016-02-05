@@ -33,7 +33,7 @@ public class Histogram
 				histogram.put(separated[x], count+1);
 			}
 			
-			else histogram.put(separated[x], 1);
+			else histogram.put(separated[x], 1); 
 			
 		}
 
