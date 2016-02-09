@@ -1,5 +1,6 @@
 package maps;
 import java.io.File;
+import java.util.*;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class AcroRunner
 		
 		while(k.hasNextLine())
 		{
-			a.convert(k.nextLine());
+			System.out.println(a.convert(k.nextLine()));
 		}
 	}
 }
