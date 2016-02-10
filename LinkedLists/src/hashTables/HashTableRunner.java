@@ -1,4 +1,4 @@
-
+package hashTables;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;

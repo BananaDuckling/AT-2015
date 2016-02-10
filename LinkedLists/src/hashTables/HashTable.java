@@ -1,4 +1,4 @@
-
+package hashTables;
 import java.util.LinkedList;
 import java.util.Scanner;
 import static java.lang.System.*;
@@ -7,7 +7,7 @@ public class HashTable
 {
 	private LinkedList[] table;
 
-	public HashTable( )
+	public HashTable()
 	{
 		table = new LinkedList[10];
 	}
@@ -16,11 +16,7 @@ public class HashTable
 	{
 		System.out.println("add");
 		int i = obj.hashCode();
-
-
-
-
-
+		table[i%10] = i;
 	}
 
 	public String toString()

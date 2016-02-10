@@ -1,4 +1,4 @@
-
+package hashTables;
 public class NumberTester
 {
 	public static void main(String[] args)
