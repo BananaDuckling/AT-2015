@@ -2,7 +2,6 @@ package hashTables;
 import java.util.LinkedList;
 import java.util.Scanner;
 import static java.lang.System.*;
-
 public class HashTable
 {
 	private LinkedList[] table;
