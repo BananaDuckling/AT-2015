@@ -14,10 +14,20 @@ public class TeamMap {
 	
 	public void changeWeightGroup(Wrestler w, int group)
 	{
-		h.put(w.getName(), w.getWeight());		
+		h.put(w.getName(), group);		
 	}
 	public int get(Wrestler w)
 	{
 		return h.get(w.getName());
+	}
+	
+	public String toString()
+	{
+		String ret = "";
+		for(Map.Entry<String, Integer> entry : h.entrySet())
+		{
+			ret += entry.getKey() + ": " +entry.getValue()+"\n";
+		}
+		return ret;
 	}
 }
