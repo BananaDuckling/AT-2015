@@ -14,7 +14,10 @@ public class Wrestler
     }
     public int getWeight()
     {
-        return weight;
+    	int temp = weight;
+    	//actually returns weight group
+        temp = temp/10;
+        return temp%10;
     }
     public String getName()
     {
