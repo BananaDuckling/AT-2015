@@ -1,6 +1,6 @@
 package hashTables;
 
-public class Student {
+public class Student implements Comparable {
 	private String first, last, id;
 	
 	public Student(String f, String l, String id)
@@ -18,6 +18,14 @@ public class Student {
 		return h;
 	}
 
+	public int compareTo(Object o)
+	{
+		Student temp = (Student)o;
+		if(last.compareTo(temp.getLast()) == 0)
+			return first.compareTo(temp.getFirst());
+		else
+			return last.compareTo(temp.getLast());
+	}
 	public String getFirst() {
 		return first;
 	}
