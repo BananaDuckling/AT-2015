@@ -19,4 +19,39 @@ public class ClubMap
 			h.put(club, t);
 		}
 	}
+	
+	public String toString()
+	{
+		String ret = "";
+		for(Map.Entry<String, TreeSet<Student>> entry : h.entrySet())
+		{
+			TreeSet<Student> temp = entry.getValue();
+			ret += entry.getKey() + " club: \n";
+			for(Student stu : temp)
+			{
+				ret += stu.getFirst() + " "+stu.getLast()+" "+stu.getId()+"\n";
+			}
+			ret+="\n";
+		}
+		return ret;
+	}
+	
+	public String toString(String clubName)
+	{
+		String ret = "";
+		for(Map.Entry<String, TreeSet<Student>> entry : h.entrySet())
+		{
+			if(entry.getKey().equalsIgnoreCase(clubName))
+			{
+				TreeSet<Student> temp = entry.getValue();
+				ret += entry.getKey() + " club: \n";
+				for(Student stu : temp)
+				{
+					ret += stu.getFirst() + " "+stu.getLast()+" "+stu.getId()+"\n";
+				}
+				ret+="\n";
+			}
+		}
+		return ret;
+	}
 }

@@ -12,13 +12,15 @@ public class ClubTester {
 		while(k.hasNextLine())
 		{
 			Scanner s = new Scanner(k.nextLine().trim());
-			String f = s.next();
 			String l = s.next();
+			String f = s.next();
 			String id = s.next();
 			String club = s.next();
 			Student student = new Student(f, l, id);
 			c.add(student, club);
 		}
+		System.out.println(c);
+		System.out.println(c.toString("Math"));
 	}
 
 }
