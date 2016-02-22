@@ -6,7 +6,7 @@ public class PhoneBook {
 	private Hashtable<Integer, LinkedList<PhoneEntry>> h;
 	public PhoneBook()
 	{
-		h = new Hashtable<String, String>();
+		h = new Hashtable<Integer, LinkedList<PhoneEntry>>();
 	}
 	
 	public PhoneBook(int numSlots)
@@ -17,15 +17,25 @@ public class PhoneBook {
 	public void add(Object o)
 	{
 		try {
-			o = ()
+			if(h.containsKey(o.hashCode()))
+				h.get(o.hashCode()).add((PhoneEntry)o);
+			else
+			{
+				LinkedList l = new LinkedList<PhoneEntry>();
+				l.add((PhoneEntry) o);
+				h.put(o.hashCode(), l);
+			}
 		} catch (ClassCastException e) {
-			// TODO: handle exception
+			System.out.println("lol u can't enter an object of that type");
 		}		
 	}
 	
 	public void display()
 	{
-		
+		for(Integer i :h.keySet())
+		{
+			System.out.println("Last name first letter:"+h.get);
+		}
 	}
 	
 	public int getCapacity()
