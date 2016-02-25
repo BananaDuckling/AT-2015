@@ -6,14 +6,13 @@ public class BinarySearchTree
 {
 	private TreeNode root;
 
+	public int compareTo()
+	{
+		return 1;
+	}
 	public BinarySearchTree()
 	{
 		root = null;
-	}
-
-	public void add(Comparable val)
-	{
-		root = add(val, root);
 	}
 
 	private TreeNode add(Comparable val, TreeNode tree)
@@ -62,16 +61,40 @@ public class BinarySearchTree
 		if(tree != null)
 		{
 			System.out.println(tree.getValue()+" ");
-			inOrder(tree.getLeft());
-			
+			preOrder(tree.getLeft());
+			preOrder(tree.getRight());
 		}
 	}
+	public void postOrder()
+	{
+		postOrder(root);
+		System.out.println("\n\n");
+	}
+	private void postOrder(TreeNode tree)
+	{
+		if(tree != null)
+		{
+			postOrder(tree.getLeft());
+			postOrder(tree.getRight());
+			System.out.println(tree.getValue()+" ");
+		}
+		
+	}
 	
-	
-	
-	
-	
-	
+	public void revOrder()
+	{
+		revOrder(root);
+		System.out.println("\n\n");
+	}
+	private void revOrder(TreeNode tree)
+	{
+		if(tree != null)
+		{
+			revOrder(tree.getRight());
+			System.out.println(tree.getValue());
+			inOrder(tree.getLeft());
+		}
+	}
 	
 
 
