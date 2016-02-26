@@ -118,7 +118,45 @@ public class BinarySearchTree
 
 	//add getNumLeaves, getWidth, getHeight, getNumNodes, and isFull
 
+	public int getNumLeaves(TreeNode t)
+	{
+		if(t == null)
+			return 1;
+		return getNumLeaves(t.getLeft())+getNumLeaves(t.getRight());
+	}
 
+	private int getWidth(TreeNode t)
+	{
+		if(t == null)
+			return 0;
+		int left = getWidth(t.getLeft())+1;
+		int right = getWidth(t.getRight())+1;
+		if(left < right)
+			return left;
+		return right;
+	}
+	
+	public int getHeight(TreeNode t)
+	{
+		if(t == null)
+			return 0;
+		int left = getHeight(t.getLeft())+1;
+		int right = getHeight(t.getRight())+1;
+		if(left < right)
+			return left;
+		return right;
+	}
+	
+	public int getNumNodes()
+	{
+		
+	}
+	
+	public boolean isFull()
+	{
+		
+	}
+	
 
 
 
