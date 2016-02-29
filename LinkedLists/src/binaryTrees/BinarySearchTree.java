@@ -6,10 +6,6 @@ public class BinarySearchTree
 {
 	private TreeNode root;
 
-	public int compareTo()
-	{
-		return 1;
-	}
 	public BinarySearchTree()
 	{
 		root = null;
@@ -147,14 +143,20 @@ public class BinarySearchTree
 		return right;
 	}
 	
-	public int getNumNodes()
+	public int getNumNodes(TreeNode t)
 	{
-		
+		if(t == null)
+			return 1;
+		int left = getNumNodes(t.getLeft())+1;
+		int right = getNumNodes(t.getRight())+1;
+		return left+right;
 	}
 	
-	public boolean isFull()
+	public boolean isFull(TreeNode t)
 	{
-		
+		if(!((t.getRight() == null && t.getLeft()== null) || (t.getRight() != null && t.getLeft() != null)))
+			return false;
+		return isFull(t.getRight()) && isFull(t.getLeft());
 	}
 	
 
@@ -171,10 +173,18 @@ public class BinarySearchTree
 
 	
 	
-	
-	public boolean search(Comparable val)
+	public boolean search(Comparable<TreeNode> c)
 	{
-		if(val.compareTo())
+		search(c, root);
+	}
+	private boolean search(Comparable<TreeNode> c, TreeNode t)
+	{
+		if(c.compareTo(t) == 0)
+			return true;
+		if(t == null)
+			return false;
+		return search(c.compareTo(t.getLeft())) || search(c.compareTo(t.getRight()));
+		
 	}
 	
 	//maxNode
