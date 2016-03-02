@@ -1,11 +1,11 @@
-
+package binaryTrees;
 public class TreeNode implements Treeable
 {
 	private Comparable treeNodeValue;
 	private TreeNode leftTreeNode;
 	private TreeNode rightTreeNode;
 
-	public TreeNode( )
+	public TreeNode()
 	{
 		treeNodeValue = null;
 		leftTreeNode = null;

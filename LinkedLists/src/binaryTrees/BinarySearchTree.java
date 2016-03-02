@@ -1,4 +1,4 @@
-
+package binaryTrees;
 import static java.lang.System.*;
 import java.util.LinkedList;
 
@@ -10,7 +10,15 @@ public class BinarySearchTree
 	{
 		root = null;
 	}
-
+	
+	public BinarySearchTree(TreeNode t)
+	{
+		root = t;
+	}
+	public void add(Comparable val)
+	{
+		root = add(val, root);
+	}
 	private TreeNode add(Comparable val, TreeNode tree)
 	{
 	   if(tree == null)
@@ -195,8 +203,52 @@ public class BinarySearchTree
 	
 	//display like a tree
 	
-	//remove
-
+	public void remove(Comparable val)
+	{
+		root = remove(val, root);
+	}
+	private TreeNode remove(Comparable val, TreeNode t)
+	{
+		if(t != null)
+		{
+			int dirTest = val.compareTo(t.getValue());
+			
+			if(dirTest < 0)
+				t.setLeft(remove(val, t.getLeft()));
+			else if(dirTest > 0)
+				t.setRight(remove(val, t.getRight()));
+			
+			else
+			{
+				if(t.getRight() == null)
+					t = t.getLeft();
+				else
+				{
+					TreeNode successor = getSmallest(t.getRight());
+					t.setValue(successor.getValue());
+					t.setRight(remove(successor.getValue(), t.getRight()));
+							
+				}
+			}
+		}
+	}
+	
+	public Comparable getSmallest()
+	{
+		return getSmallest(root).getValue();
+	}
+	private TreeNode getSmallest(TreeNode t)
+	{
+		if(t != null)
+		{
+			if(t.getLeft() != null)
+				return getSmallest(t.getLeft());
+			else
+				return t;
+		}
+		else
+			return t;
+	}
 
 	public String toString()
 	{
