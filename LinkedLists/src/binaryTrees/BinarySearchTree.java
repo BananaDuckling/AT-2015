@@ -154,8 +154,8 @@ public class BinarySearchTree
 	
 	public boolean isFull(TreeNode t)
 	{
-		if(!((t.getRight() == null && t.getLeft()== null) || (t.getRight() != null && t.getLeft() != null)))
-			return false;
+		if(t == null)
+			return !((t.getRight() == null && t.getLeft()== null) || (t.getRight() != null && t.getLeft() != null));
 		return isFull(t.getRight()) && isFull(t.getLeft());
 	}
 	
@@ -183,13 +183,37 @@ public class BinarySearchTree
 			return true;
 		if(t == null)
 			return false;
-		return search(c.compareTo(t.getLeft())) || search(c.compareTo(t.getRight()));
+		return search(c, t.getLeft()) || search(c, t.getRight());
 		
 	}
 	
-	//maxNode
+	public int maxNode()
+	{
+		maxNode(root, 0);
+	}
+	private int maxNode(TreeNode t, int max)
+	{
+		if(t == null)
+			return max;
+		if(t.getValue().compareTo(max) > 0)
+			return Integer.valueOf(t.getValue().toString());
+		else
+			return max;
+	}
 	
-	//minNode
+	public int minNode()
+	{
+		minNode(root, 0);
+	}
+	private int minNode(TreeNode t, int min)
+	{
+		if(t == null)
+			return min;
+		if(t.getValue().compareTo(min) < 0)
+			return Integer.valueOf(t.getValue().toString());
+		else
+			return min;
+	}
 	
 	//level order
 	
@@ -200,7 +224,17 @@ public class BinarySearchTree
 
 	public String toString()
 	{
-		return "";
+		String ret = "";
+		toString(root, ret);
+		return ret;
+	}
+	private String toString(TreeNode t, String s)
+	{
+		if (t != null){
+			inOrder(t.getLeft());
+			s += t.getValue() + " ";
+			inOrder(t.getRight());
+		}
 	}
 
 	private String toString(TreeNode tree)
