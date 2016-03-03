@@ -15,6 +15,18 @@ public class BinarySearchTree
 	{
 		root = t;
 	}
+	
+	public void setLeft(TreeNode t)
+	{
+		root.setLeft(t);
+	}
+	public void setRight(TreeNode t)
+	{
+		root.setRight(t);
+	}
+	
+	
+	
 	public void add(Comparable val)
 	{
 		root = add(val, root);
