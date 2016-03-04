@@ -1,4 +1,4 @@
-
+package binaryTrees;
 public interface Treeable
 {
 	public Object getValue();
