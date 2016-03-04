@@ -289,20 +289,16 @@ public class BinarySearchTree
 	public String toString()
 	{
 		String ret = "";
-		toString(root, ret);
+		ret = toString(root, ret);
 		return ret;
 	}
 	private String toString(TreeNode t, String s)
 	{
 		if (t != null){
-			inOrder(t.getLeft());
 			s += t.getValue() + " ";
-			inOrder(t.getRight());
+			toString(t.getLeft(), s);		
+			toString(t.getRight(), s);
 		}
-	}
-
-	private String toString(TreeNode tree)
-	{
-		return "";
+		return s;
 	}
 }
