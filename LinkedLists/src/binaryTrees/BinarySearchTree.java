@@ -195,7 +195,7 @@ public class BinarySearchTree
 	
 	public boolean search(Comparable<TreeNode> c)
 	{
-		search(c, root);
+		return search(c, root);
 	}
 	private boolean search(Comparable<TreeNode> c, TreeNode t)
 	{
@@ -209,7 +209,7 @@ public class BinarySearchTree
 	
 	public int maxNode()
 	{
-		maxNode(root, 0);
+		return maxNode(root, 0);
 	}
 	private int maxNode(TreeNode t, int max)
 	{
@@ -223,7 +223,7 @@ public class BinarySearchTree
 	
 	public int minNode()
 	{
-		minNode(root, 0);
+		return minNode(root, 0);
 	}
 	private int minNode(TreeNode t, int min)
 	{
@@ -250,11 +250,19 @@ public class BinarySearchTree
 			int dirTest = val.compareTo(t.getValue());
 			
 			if(dirTest < 0)
+				/*
+				 * if val is less than current node/to the left
+				 * then go left again until match is found
+				 */
 				t.setLeft(remove(val, t.getLeft()));
 			else if(dirTest > 0)
+				/*
+				 * if val is greater than curr node/to the right
+				 * go right again until match is found	
+				 */
 				t.setRight(remove(val, t.getRight()));
 			
-			else
+			else	//if the value to remove is found
 			{
 				if(t.getRight() == null)
 					t = t.getLeft();
@@ -263,10 +271,10 @@ public class BinarySearchTree
 					TreeNode successor = getSmallest(t.getRight());
 					t.setValue(successor.getValue());
 					t.setRight(remove(successor.getValue(), t.getRight()));
-							
 				}
 			}
 		}
+		return null;
 	}
 	
 	public Comparable getSmallest()

@@ -39,8 +39,7 @@ public class PhoneBook {
 			System.out.println("Last name first letter:"+(char)temp);
 		}
 	}
-	
-	public int getCapacity()
+	public int lookupNumber(String name) 
 	{
 		
 	}
