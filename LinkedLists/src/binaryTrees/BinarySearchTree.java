@@ -1,6 +1,6 @@
 package binaryTrees;
 import static java.lang.System.*;
-import java.util.LinkedList;
+import java.util.*;
 
 public class BinarySearchTree
 {
@@ -33,21 +33,20 @@ public class BinarySearchTree
 	}
 	private TreeNode add(Comparable val, TreeNode tree)
 	{
-	   if(tree == null)
-	   {
+		if(tree == null){
 			tree = new TreeNode(val);
 			return tree;
-	   }
-		
+		}
 		Comparable treeValue = tree.getValue();
 		int dirTest = val.compareTo(treeValue);
-		
-		
+
+
 		if(dirTest <= 0)
 			tree.setLeft(add(val, tree.getLeft()));
+
 		else if(dirTest > 0)
 			tree.setRight(add(val, tree.getRight()));
-		
+
 		return tree;
 	}
 
@@ -69,14 +68,17 @@ public class BinarySearchTree
 	//add preOrder, postOrder, and revOrder
 	public void preOrder()
 	{
-		preOrder(root);
+		System.out.print(root.getValue()+ "  ");
+		preOrder(root.getLeft());
+		preOrder(root.getRight());
+
 		System.out.println("\n\n");
 	}
 	private void preOrder(TreeNode tree)
 	{
 		if(tree != null)
 		{
-			System.out.println(tree.getValue()+" ");
+			System.out.print(tree.getValue() + "  ");
 			preOrder(tree.getLeft());
 			preOrder(tree.getRight());
 		}
@@ -92,7 +94,7 @@ public class BinarySearchTree
 		{
 			postOrder(tree.getLeft());
 			postOrder(tree.getRight());
-			System.out.println(tree.getValue()+" ");
+			System.out.print(tree.getValue()+" ");
 		}
 		
 	}
@@ -107,13 +109,21 @@ public class BinarySearchTree
 		if(tree != null)
 		{
 			revOrder(tree.getRight());
-			System.out.println(tree.getValue());
-			inOrder(tree.getLeft());
+			System.out.print(tree.getValue() + " ");
+			revOrder(tree.getLeft());
 		}
+
 	}
 	
 
-
+	public void getNumNodes(){
+		System.out.println("Number of nodes: \n" + getNumNodes(root) +"\n");
+	}
+	private int getNumNodes(TreeNode tree){
+		if(tree == null)
+			return 0;
+		return 1 + getNumNodes(tree.getLeft()) + getNumNodes(tree.getRight());
+	}
 
 	public int getNumLevels()
 	{
@@ -134,6 +144,9 @@ public class BinarySearchTree
 
 	//add getNumLeaves, getWidth, getHeight, getNumNodes, and isFull
 
+	public void getNumLeaves(){
+		System.out.println("Number of leaves: \n" + (getNumLeaves(root) / 2) +"\n");
+	}
 	public int getNumLeaves(TreeNode t)
 	{
 		if(t == null)
@@ -141,99 +154,110 @@ public class BinarySearchTree
 		return getNumLeaves(t.getLeft())+getNumLeaves(t.getRight());
 	}
 
-	private int getWidth(TreeNode t)
-	{
-		if(t == null)
-			return 0;
-		int left = getWidth(t.getLeft())+1;
-		int right = getWidth(t.getRight())+1;
-		if(left < right)
-			return left;
-		return right;
+	public void getWidth(){
+		System.out.println("GET WIDTH: \n" + (getWidth(root) + 1) +"\n");
 	}
-	
-	public int getHeight(TreeNode t)
-	{
-		if(t == null)
-			return 0;
-		int left = getHeight(t.getLeft())+1;
-		int right = getHeight(t.getRight())+1;
-		if(left < right)
-			return left;
-		return right;
-	}
-	
-	public int getNumNodes(TreeNode t)
-	{
-		if(t == null)
+
+	private int getWidth(TreeNode tree){
+		if(tree == null)
 			return 1;
-		int left = getNumNodes(t.getLeft())+1;
-		int right = getNumNodes(t.getRight())+1;
-		return left+right;
+
+		if(getWidth(tree.getLeft()) > getWidth(tree.getRight()))
+			return getWidth(tree.getLeft()) + 1;
+
+		return getWidth(tree.getRight()) + 1;
 	}
 	
-	public boolean isFull(TreeNode t)
-	{
-		if(t == null)
-			return !((t.getRight() == null && t.getLeft()== null) || (t.getRight() != null && t.getLeft() != null));
-		return isFull(t.getRight()) && isFull(t.getLeft());
+	public void getHeight(){
+		System.out.println("Height: \n"+ (getNumLevels(root)-1) + "\n");
 	}
 	
-
-
-
-
-
-
-
-
-
-
-
-
 	
-	
-	public boolean search(Comparable<TreeNode> c)
-	{
-		return search(c, root);
+	public void isFull(){
+		System.out.println("Is full: \n" + isFull(root) +"\n");
 	}
-	private boolean search(Comparable<TreeNode> c, TreeNode t)
-	{
-		if(c.compareTo(t) == 0)
+
+	private boolean isFull(TreeNode tree){
+		if(tree.getLeft() == null && tree.getRight() == null)
 			return true;
-		if(t == null)
+
+		if(tree.getLeft() != null && tree.getRight() != null)
+			return isFull(tree.getLeft()) && isFull(tree.getRight());
+
+		return false;
+
+	}
+
+	
+	public void search(Comparable c){
+		System.out.println("SEARCH FOR " + c.toString() + "\n" + search(root, c)+"\n");
+//		if(search(root, c))
+			
+	}
+
+	private boolean search(TreeNode tree, Comparable c){
+		if(tree == null)
 			return false;
-		return search(c, t.getLeft()) || search(c, t.getRight());
+
+		if(tree.getValue().equals(c))
+			return true;
+
+		return (search(tree.getLeft(), c) || search (tree.getRight(), c));
+	}
+	
+
+	public void maxNode(){
+		System.out.println("Max Node: \n"+maxNode(root, root.getValue())+"\n");
+	}
+
+	private Comparable maxNode(TreeNode tree, Comparable c){
+		if(tree == null)
+			return c;
+
+		if(tree.getValue().compareTo(c) > 0)
+			return maxNode(tree.getRight(), tree.getValue());
+
+		return maxNode(tree.getRight(), c);
+	}
+	
+	public void minNode(){
+		System.out.println("Min node: \n"+minNode(root, root.getValue())+"\n");
+
+	}
+
+	private Comparable minNode(TreeNode tree, Comparable c){
+		if(tree == null)
+			return c;
+
+		if(tree.getValue().compareTo(c) < 0)
+			return minNode(tree.getLeft(), tree.getValue());
+
+		return minNode(tree.getLeft(), c);
+	}
+	public void levelOrder(){
+		System.out.println("Level order:");
+
+		Queue<Comparable> q = new LinkedList<Comparable>();
+		q.add(root.getValue());
+		levelOrder(root, q);
 		
+		System.out.println(q);
+		System.out.println("\n\n");		
 	}
-	
-	public int maxNode()
-	{
-		return maxNode(root, 0);
+
+	private void levelOrder(TreeNode tree, Queue<Comparable> list){
+		if(tree == null)
+			return;
+		if(tree.getLeft() != null)
+			list.add(tree.getLeft().getValue());
+
+		if(tree.getRight() != null)
+			list.add(tree.getRight().getValue());
+
+		levelOrder(tree.getLeft(), list);
+		levelOrder(tree.getRight(), list);
 	}
-	private int maxNode(TreeNode t, int max)
-	{
-		if(t == null)
-			return max;
-		if(t.getValue().compareTo(max) > 0)
-			return Integer.valueOf(t.getValue().toString());
-		else
-			return max;
-	}
-	
-	public int minNode()
-	{
-		return minNode(root, 0);
-	}
-	private int minNode(TreeNode t, int min)
-	{
-		if(t == null)
-			return min;
-		if(t.getValue().compareTo(min) < 0)
-			return Integer.valueOf(t.getValue().toString());
-		else
-			return min;
-	}
+
 	
 	//level order
 	
@@ -296,17 +320,19 @@ public class BinarySearchTree
 
 	public String toString()
 	{
-		String ret = "";
-		ret = toString(root, ret);
-		return ret;
-	}
-	private String toString(TreeNode t, String s)
-	{
-		if (t != null){
-			s += t.getValue() + " ";
-			toString(t.getLeft(), s);		
-			toString(t.getRight(), s);
+		String str = "";
+		for(int x = 0; x<getNumLevels(root); x++){
+			str += toString(root, x+1);
+			str+="\n";
 		}
-		return s;
+		return str;
+	}
+	private String toString(TreeNode tree, int level)
+	{
+		if(tree == null)
+			return "";
+		if(level == 1)
+			return tree.getValue().toString() + "  "; 
+		return toString(tree.getLeft(), level-1) + toString(tree.getRight(), level-1);
 	}
 }
