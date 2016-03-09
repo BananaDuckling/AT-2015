@@ -1,121 +1,151 @@
 package hashTables;
-import java.util.*;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
 public class PhoneBook {
-	
+
+	private Hashtable<Integer, LinkedList<PhoneEntry>> map;
 	private int numSlots;
-	private Hashtable<Integer, LinkedList<PhoneEntry>> h;
-	public PhoneBook()
-	{
-		h = new Hashtable<Integer, LinkedList<PhoneEntry>>();
-	}
-	
-	public PhoneBook(int numSlots)
-	{
+
+	public PhoneBook(int numSlots) throws FileNotFoundException{
 		this.numSlots = numSlots;
-	}
-	
-	public void add(Object o)
-	{
-		try {
-			if(h.containsKey(o.hashCode()))
-				h.get(o.hashCode()).add((PhoneEntry)o);
-			else
-			{
-				LinkedList l = new LinkedList<PhoneEntry>();
-				l.add((PhoneEntry) o);
-				h.put(o.hashCode(), l);
-			}
-		} catch (ClassCastException e) {
-			System.out.println("lol u can't enter an object of that type");
-		}		
-	}
-	
-	public void display()
-	{
-		for(Integer i :h.keySet())
-		{
-			int temp = i;
-			System.out.println("Last name first letter:"+(char)temp);
+
+		map = new Hashtable<Integer, LinkedList<PhoneEntry>>();
+
+		for(int x = 0; x < numSlots; x++){
+			map.put(x, new LinkedList<PhoneEntry>());
 		}
-	}
-	public int lookupNumber(String name) 
-	{
 		
+		load();
+		sort();
 	}
-	
-	public int getSize()
-	{
-		int ret = 0;
-		for(int i : h.keySet())
-		{
-			for(PhoneEntry p : h.get(i))
-				ret++;
-		}
-		return ret;
+
+	public PhoneBook() throws FileNotFoundException{
+		this(10);
 	}
-	
-	public void load(File f) throws FileNotFoundException
-	{
-		Scanner k = new Scanner(f);
-		while(k.hasNextLine())
-		{
-			Scanner k1 = new Scanner(k.nextLine());
-			PhoneEntry entry = new PhoneEntry(k.next(), Integer.parseInt(k.next()));
+
+	public void load() throws FileNotFoundException{
+		
+		File f = new File("C:/Users/CMS-1/Documents/phone.dat");
+		Scanner s = new Scanner(f);
+		
+		while(s.hasNext()){
+			add(new PhoneEntry(s.nextLine()));
 		}
 	}
 	
-	public int getNumberNulls()
-	{
-		int numNulls = 0;
-		for(int i : h.keySet())
-		{
-			if(h.get(i) == null)
-				numNulls ++;
-		}
-		return numNulls;
+	public void add(Object o){
+		PhoneEntry p = (PhoneEntry) o;
+		
+		map.get(p.hashCode() % numSlots).add(p);
 	}
-	
-	public int getLongestList()
-	{
-		int longestSize = 0;
-		for(int i : h.keySet())
-		{
-			if(h.get(i).size() > longestSize)
-				longestSize = h.get(i).size();
+
+	public String lookup(String name){
+		for(int s : map.keySet()){	
+			for(PhoneEntry p : map.get(s))
+				if(p.getName().equals(name))
+					return p.getNumber();
 		}
-		return longestSize;
+		return "number not found";
 	}
-	
-	public String lookup(String lookFor)
-	{
-		for(int i : h.keySet())
-		{
-			for(PhoneEntry e : h.get(i))
-			{
-				if(e.getName().equalsIgnoreCase(lookFor))
-					return e.getNumber()+"";
-			}
-				
-		}
-		return "not found";
-	}
-	
-	public boolean changeNumber(String lookFor, String newNum)
-	{
-		for(int i : h.keySet())
-		{
-			for(PhoneEntry e : h.get(i))
-			{
-				if(e.getName().equalsIgnoreCase(lookFor))
-				{
-					e.setNumber(Integer.parseInt(newNum));
+
+	public boolean changeNumber(String lookfor, String newNumb){
+		for(int s : map.keySet()){	
+			for(PhoneEntry p : map.get(s))
+				if(p.getName().equals(lookfor)){
+					p.setNumber(newNumb);
 					return true;
 				}
-			}
-				
 		}
 		return false;
 	}
-}
+	
+	public int getCapacity(){
+		return numSlots;
+	}
 
+	public int getSize(){
+		int numEntries = 0; 
+
+		for(int s : map.keySet()){	
+			for(PhoneEntry p : map.get(s))
+				numEntries++;
+		}
+
+		return numEntries;
+	}
+
+	public int getNumberOfNulls(){
+		int numNull = 0;
+
+		for(int s : map.keySet()){	
+			if(map.get(s) == null)
+				numNull++;
+		}
+		return numNull;
+	}
+
+	public int getLongestList(){
+		int longest = 0;
+		for(int s : map.keySet()){	
+			if(map.get(s).size() > longest)
+				longest = map.get(s).size();
+		}
+		return longest;
+	}
+
+	public void sort(){
+		for(int s : map.keySet())
+			Collections.sort(map.get(s));
+			
+	}
+	
+	public String toString(){
+		StringBuilder str = new StringBuilder();
+
+		for(int s : map.keySet()){
+			str.append("BUCKET "+s+"\n");
+
+			for(PhoneEntry p : map.get(s))
+				str.append(p.toString() + " | ");
+			str.append("\n");
+		}
+
+		return str.toString();
+	}
+
+	public void display(){
+		System.out.println(toString());
+	}
+
+	public static void main(String[] args) throws FileNotFoundException{
+		PhoneBook p = new PhoneBook();
+		p.display();
+		
+		System.out.println("LOOK UP GUILLEN: ");
+		System.out.println(p.lookup("Guillen"));
+		
+		System.out.println("GET CAPACITY: ");
+		System.out.println(p.getCapacity());
+		
+		System.out.println("GET SIZE");
+		System.out.println(p.getSize());
+		
+		System.out.println("GET NUMBER NULL");
+		System.out.println(p.getNumberOfNulls());
+		
+		System.out.println("GET LONGEST LIST: ");
+		System.out.println(p.getLongestList());
+		
+		System.out.println("CHANGE NUMBER GUILLEN TO 6095020");
+		p.changeNumber("Guillen", "6095020");
+		System.out.println(p.lookup("Guillen"));
+	}
+
+}

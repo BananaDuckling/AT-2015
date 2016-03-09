@@ -7,7 +7,7 @@ public class ClubTester {
 	public static void main(String[] args) throws FileNotFoundException 
 	{
 		ClubMap c = new ClubMap();
-		File file = new File("C:/Users/16jc0080/Downloads/clubMap.txt");
+		File file = new File("C:/Users/16jc0080/Downloads/phone.txt");
 		Scanner k = new Scanner(file);
 		while(k.hasNextLine())
 		{

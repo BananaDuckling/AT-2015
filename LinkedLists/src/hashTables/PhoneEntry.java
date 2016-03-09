@@ -1,34 +1,49 @@
-package hashTables;
+package phone;
 
-public class PhoneEntry {
+public class PhoneEntry implements Comparable {
+
 	private String name;
-	private int number;
+	private String number;
 	
-	public PhoneEntry(String name, int number)
-	{
-		this.name = name;
-		this.number = number;
+	public PhoneEntry(String info){
+		String[] parts = info.split("\t");
+		
+		name = parts[0];
+		number = parts[1];
+		
 	}
 	
-	public int hashCode()
-	{
-		char ret = name.charAt(0);
-		return (int)ret;
-	}
-
-	public String getName() {
+	public String getName(){
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getNumber() {
+	
+	public String getNumber(){
 		return number;
 	}
-
-	public void setNumber(int number) {
-		this.number = number;
+	
+	public void setNumber(String newNumber){
+		number = newNumber;
 	}
-}	
+	
+	public int hashCode(){
+		return Integer.parseInt(number);
+	}
+	
+	public String toString(){
+		return name + ", " + number;
+	}
+	
+	public int compareTo(Object o){
+		PhoneEntry p = (PhoneEntry) o;
+
+		if(! number.equals(p.getNumber())){
+			return number.compareTo(p.getNumber());
+		}
+		
+		if(! name.equals(p.getName())){
+			return name.compareTo(p.getName());
+		}
+		
+		return 0;
+	}
+}
