@@ -32,7 +32,7 @@ public class PhoneBook {
 
 	public void load() throws FileNotFoundException{
 		
-		File f = new File("C:/Users/CMS-1/Documents/phone.dat");
+		File f = new File("C:/Users/16jc0080/Downloads/phone.txt");
 		Scanner s = new Scanner(f);
 		
 		while(s.hasNext()){
