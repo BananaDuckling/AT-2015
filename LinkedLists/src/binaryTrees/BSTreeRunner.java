@@ -6,15 +6,13 @@ public class BSTreeRunner
 	{
 		BinarySearchTree tree = new BinarySearchTree();
 		tree.add(90);
-		tree.add(50);
-		tree.add(40);
-		tree.add(65);
-		tree.add(45);
-		tree.add(70);
-		tree.add(120);
+		tree.add(80);
 		tree.add(100);
-		tree.add(150);
-		tree.add(30);
+		tree.add(70);
+		tree.add(85);
+		tree.add(98);
+		tree.add(120);
+	
 		
 		System.out.println("In order");
 		tree.inOrder();
@@ -29,7 +27,7 @@ public class BSTreeRunner
 		tree.getWidth();
 		tree.getNumLeaves();
 		tree.getNumNodes();
-		tree.getNumLevels();
+		System.out.println("Number of levels: "+tree.getNumLevels()+"\n");
 		tree.isFull();
 		tree.search(new Integer(120));
 		tree.maxNode();
