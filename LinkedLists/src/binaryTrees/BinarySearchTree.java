@@ -16,6 +16,15 @@ public class BinarySearchTree
 		root = t;
 	}
 	
+	public void setRoot(TreeNode t)
+	{
+		root = t;
+	}
+	
+	public TreeNode getRoot()
+	{
+		return root;
+	}
 	public void setLeft(TreeNode t)
 	{
 		root.setLeft(t);

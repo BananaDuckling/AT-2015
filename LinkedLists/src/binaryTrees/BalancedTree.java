@@ -1,44 +1,41 @@
 package binaryTrees;
 import java.util.*;
-public class BalancedTree {
+public class BalancedTree extends BinarySearchTree{
 	
 	private TreeNode t = new TreeNode();
-	public BalancedTree(int[] arr)
+	public BalancedTree(Object[] arr)
 	{
-		
+		setRoot(balance(arr));
 	}
-	public TreeNode balance(int[] arr)
+	public TreeNode balance(Object[] arr)
 	{
 		return balance(arr, 0, arr.length-1);
 	}
 
-	private TreeNode balance(int[] arr, int start, int end)
+	private TreeNode balance(Object[] arr, int start, int end)
 	{
-		int index = (start + end)/2;
-		if(index%2 != 0)
-			index++;
-
-		TreeNode left = new TreeNode(arr, start, index);
-		TreeNode right = new TreeNode(arr, index, end);
-		root = new TreeNode(arr[index], left, right);
-	}
-	
-	public void inOrder()
-	{
+		if(start >= end)
+			return null;
+		int mid = (start + end)/2;
 		
+		TreeNode node = new TreeNode((Comparable)arr[mid]);
+
+		node.setLeft(balance(arr, start, mid));
+		node.setRight(balance(arr, mid+1, end));
+		return node;
 	}
 
 	public static void main(String[] args)
 	{
-		int[] data = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+		Object[] data = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 		BalancedTree x = new BalancedTree(data);
-		System.out.println("InOrder");
-		x.inOrder();
+		System.out.println("preOrder");
+		x.preOrder();
 		TreeNode temp = x.getRoot();
 		System.out.println("Right Branch");
 		while(temp != null)
 		{
-			System.out.print(temp+ " ");
+			System.out.print(temp.toString()+ " ");
 			temp = temp.getRight();
 		}
 
