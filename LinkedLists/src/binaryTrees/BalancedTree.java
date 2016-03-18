@@ -22,6 +22,11 @@ public class BalancedTree {
 		TreeNode right = new TreeNode(arr, index, end);
 		root = new TreeNode(arr[index], left, right);
 	}
+	
+	public void inOrder()
+	{
+		
+	}
 
 	public static void main(String[] args)
 	{
