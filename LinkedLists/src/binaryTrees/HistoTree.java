@@ -1,3 +1,4 @@
+package binaryTrees;
 import static java.lang.System.*;
 
 public class HistoTree
