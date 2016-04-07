@@ -2,28 +2,40 @@ package binaryTrees;
 
 public class MorseCode {
 
-	private static final String[] morse = {"T","M","O","_","0","9",".","8","G","Q","Z","7","N","K",
-		"Y","C","D","X","B","6","E","A","W","J","1","P","R","L","I","U","-","2","F","S","V","3","H",
-		"4","5"};
-			
-	public static String decode(String s)
+	private static final String[] LETTERS = "0_9O. 8M Q G Z7T Y K C N X D B6/1J W P A   R L E2- U F I3V S4H5".split("");
+	BinarySearchTree tree;
+	
+	public MorseCode()
 	{
-		//this regex is for space or forwards slash
-		String[] arr = s.split(" |/");
-		
-		BinarySearchTree tree = new BinarySearchTree();
-		
-	}
-	private static void setTree(String[] morse, BinarySearchTree tree)
-	{
-		int index = 0;
-		tree.setLeft(new TreeNode((Comparable)morse[index++])); tree.getLeft();
-		tree.setLeft(new TreeNode((Comparable)morse[index++]));
-		tree.setLeft(new TreeNode((Comparable)morse[index++]));
-		tree.setLeft
+		tree = new BalancedTree(LETTERS);
 	}
 	
-	public static String encode(String s)
+	public String decode(String s)
+	{
+		/*this regex is for space or forwards slash
+		 * space designates the end of a letter
+		 * slash marks the end of a word.
+		 */
+		
+		String[] arr = s.split(" |/");
+		int index = LETTERS.length-1;
+		
+		for(String input : arr)
+		{
+			for(int x = 0; x < input.length(); x++)
+				if(input.substring(x,x).equals("-"))
+					index = index *2 +1;
+				else
+					index = index *2 +2;
+			
+		}
+	}
+	private void setTree(String[] morse, BinarySearchTree tree)
+	{
+		
+	}
+	
+	public String encode(String s)
 	{
 		
 	}
