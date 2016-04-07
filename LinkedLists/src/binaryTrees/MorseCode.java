@@ -16,27 +16,38 @@ public class MorseCode {
 		 * space designates the end of a letter
 		 * slash marks the end of a word.
 		 */
-		
-		String[] arr = s.split(" |/");
-		int index = LETTERS.length-1;
+		String[] arr = s.split("/");
+		String ret = "";
 		
 		for(String input : arr)
 		{
+			TreeNode t = new TreeNode();
+			String temp = "";
 			for(int x = 0; x < input.length(); x++)
+			{
 				if(input.substring(x,x).equals("-"))
-					index = index *2 +1;
-				else
-					index = index *2 +2;
-			
+					t = tree.getLeft();
+				else if(input.substring(x, x).equals("."))
+					t = tree.getRight();
+				ret += t.toString() + " ";
+			}
 		}
-	}
-	private void setTree(String[] morse, BinarySearchTree tree)
-	{
-		
 	}
 	
 	public String encode(String s)
 	{
+		String[] arr = s.split(" ");
+		String ret = "";
+		
+		TreeNode t = new TreeNode();
+		String temp = "";
+		for(String input : arr)
+		{
+			for(int x = 0; x < input.length(); x++)
+			{
+				
+			}
+		}
 		
 	}
 	

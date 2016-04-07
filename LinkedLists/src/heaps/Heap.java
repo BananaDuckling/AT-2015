@@ -48,8 +48,6 @@ public class Heap
 		{
 			int left = top * 2 +1;
 			int right = top * 2 +2;
-			
-			
 		}
 	}
 	

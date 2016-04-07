@@ -11,6 +11,16 @@ public class BinarySearchTree
 		root = null;
 	}
 	
+	public TreeNode getLeft()
+	{
+		return root.getLeft();
+	}
+	
+	public TreeNode getRight()
+	{
+		return root.getRight();
+	}
+	
 	public BinarySearchTree(TreeNode t)
 	{
 		root = t;
