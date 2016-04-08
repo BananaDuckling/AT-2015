@@ -25,9 +25,9 @@ public class MorseCode {
 			String temp = "";
 			for(int x = 0; x < input.length(); x++)
 			{
-				if(input.substring(x,x).equals("-"))
+				if(input.substring(x,x+1).equals("-"))
 					t = tree.getLeft();
-				else if(input.substring(x, x).equals("."))
+				else if(input.substring(x, x+1).equals("."))
 					t = tree.getRight();
 				ret += t.toString() + " ";
 			}
@@ -46,7 +46,7 @@ public class MorseCode {
 			for(int x = 0; x < input.length(); x++)
 			{
 				//add space after to indicate letter break
-				ret += nodeSequence(input.substring(x, x), t) + " ";
+				nodeSequence(input.substring(x, x+1), t);
 			}
 			//add slash after to indicate word break
 			ret += "/";
@@ -54,21 +54,29 @@ public class MorseCode {
 		return ret;
 	}
 	
-	private String nodeSequence(String search, TreeNode t)
+	private void nodeSequence(String search, TreeNode t)
 	{
-		return nodeSequence(search, t, "");
+		nodeSequence(search, t, "");
 	}
-	private String nodeSequence(String search, TreeNode t, String ret)
+	private void nodeSequence(String search, TreeNode t, String ret)
 	{
-		//search is one letter, so if it is found, return ret.
-		if(search.toUpperCase().compareTo((String) (t.getValue())) == 0)
-			return ret;
+		System.out.println("search: "+search);
+		System.out.println("value: "+t.getValue());
+		if(t != null)
+		{
+			//search is one letter, so if it is found, print ret
+			if(search.equalsIgnoreCase((String) (t.getValue())))
+			
+			
+			nodeSequence(search, t.getLeft(), ret + "-");
+			nodeSequence(search, t.getRight(), ret += ".");
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		MorseCode morse = new MorseCode();
+		System.out.println(morse.encode("Justin"));
 		
-		nodeSequence(search, t.getLeft(), ret + "-");
-		nodeSequence(search, t.getRight(), ret += ".");
-		
-		//(hopefully) useless return to satisfy method
-		//shouldn't ever reach, because too busy running. otherwise, match is found and returned
-		return "";
 	}
 }

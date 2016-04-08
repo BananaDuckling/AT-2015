@@ -1,48 +1,16 @@
 package binaryTrees;
-public class PhoneEntry implements Comparable {
 
-	private String name;
-	private String number;
-	
-	public PhoneEntry(String info){
-		String[] parts = info.split("\t");
-		
-		name = parts[0];
-		number = parts[1];
-		
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public String getNumber(){
-		return number;
-	}
-	
-	public void setNumber(String newNumber){
-		number = newNumber;
-	}
-	
-	public int hashCode(){
-		return Integer.parseInt(number);
-	}
-	
-	public String toString(){
-		return name + ", " + number;
-	}
-	
-	public int compareTo(Object o){
-		PhoneEntry p = (PhoneEntry) o;
+public class PhoneEntry {
 
-		if(! number.equals(p.getNumber())){
-			return number.compareTo(p.getNumber());
-		}
-		
-		if(! name.equals(p.getName())){
-			return name.compareTo(p.getName());
-		}
-		
-		return 0;
+	public String name, number;
+	
+	public PhoneEntry(String aName, String aNumber) {
+		name = aName;
+		number = aNumber;
+	}
+	
+	@Override
+	public String toString() {
+		return name + " " + number;
 	}
 }
