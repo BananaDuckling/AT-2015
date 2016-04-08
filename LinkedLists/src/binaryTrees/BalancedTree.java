@@ -24,6 +24,18 @@ public class BalancedTree extends BinarySearchTree{
 		node.setRight(balance(arr, mid+1, end));
 		return node;
 	}
+	public void search(Comparable c){
+		search(t, c);	
+	}
+	private boolean search(TreeNode tree, Comparable c){
+		if(tree == null)
+			return false;
+
+		if(tree.getValue().equals(c))
+			return true;
+
+		return (search(tree.getLeft(), c) || search (tree.getRight(), c));
+	}
 
 	public static void main(String[] args)
 	{

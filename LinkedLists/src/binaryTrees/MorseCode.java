@@ -32,6 +32,7 @@ public class MorseCode {
 				ret += t.toString() + " ";
 			}
 		}
+		return ret;
 	}
 	
 	public String encode(String s)
@@ -39,18 +40,35 @@ public class MorseCode {
 		String[] arr = s.split(" ");
 		String ret = "";
 		
-		TreeNode t = new TreeNode();
-		String temp = "";
+		TreeNode t = this.tree.getRoot();
 		for(String input : arr)
 		{
 			for(int x = 0; x < input.length(); x++)
 			{
-				
+				//add space after to indicate letter break
+				ret += nodeSequence(input.substring(x, x), t) + " ";
 			}
+			//add slash after to indicate word break
+			ret += "/";
 		}
-		
+		return ret;
 	}
 	
-	
-	
+	private String nodeSequence(String search, TreeNode t)
+	{
+		return nodeSequence(search, t, "");
+	}
+	private String nodeSequence(String search, TreeNode t, String ret)
+	{
+		//search is one letter, so if it is found, return ret.
+		if(search.toUpperCase().compareTo((String) (t.getValue())) == 0)
+			return ret;
+		
+		nodeSequence(search, t.getLeft(), ret + "-");
+		nodeSequence(search, t.getRight(), ret += ".");
+		
+		//(hopefully) useless return to satisfy method
+		//shouldn't ever reach, because too busy running. otherwise, match is found and returned
+		return "";
+	}
 }
