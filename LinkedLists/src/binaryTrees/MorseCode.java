@@ -39,7 +39,6 @@ public class MorseCode {
 	{
 		String[] arr = s.split(" ");
 		String ret = "";
-		
 		TreeNode t = this.tree.getRoot();
 		for(String input : arr)
 		{

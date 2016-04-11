@@ -79,7 +79,7 @@ public class BinarySearchTree
 	{
 		if (tree != null){
 			inOrder(tree.getLeft());
-			System.out.print(tree.getValue() + " ");
+			System.out.println(tree.getValue() + " ");
 			inOrder(tree.getRight());
 		}
 	}
@@ -282,42 +282,30 @@ public class BinarySearchTree
 	
 	//display like a tree
 	
-	public void remove(Comparable val)
-	{
+	public void remove(Comparable val){
 		root = remove(val, root);
 	}
-	private TreeNode remove(Comparable val, TreeNode t)
-	{
-		if(t != null)
-		{
-			int dirTest = val.compareTo(t.getValue());
-			
+
+	private TreeNode remove(Comparable val, TreeNode tree){
+		if(tree != null){
+			int dirTest = val.compareTo(tree.getValue());
+
 			if(dirTest < 0)
-				/*
-				 * if val is less than current node/to the left
-				 * then go left again until match is found
-				 */
-				t.setLeft(remove(val, t.getLeft()));
-			else if(dirTest > 0)
-				/*
-				 * if val is greater than curr node/to the right
-				 * go right again until match is found	
-				 */
-				t.setRight(remove(val, t.getRight()));
-			
-			else	//if the value to remove is found
-			{
-				if(t.getRight() == null)
-					t = t.getLeft();
-				else
-				{
-					TreeNode successor = getSmallest(t.getRight());
-					t.setValue(successor.getValue());
-					t.setRight(remove(successor.getValue(), t.getRight()));
+				tree.setLeft(remove(val, tree.getLeft()));
+			else if (dirTest > 0)
+				tree.setRight(remove(val, tree.getRight()));
+			else{
+				if(tree.getRight() == null)
+					tree = tree.getLeft();
+				else{
+					TreeNode successor = getSmallest(tree.getRight());
+					tree.setValue(successor.getValue());
+					tree.setRight(remove(successor.getValue(), tree.getRight()));
 				}
 			}
 		}
-		return null;
+
+		return tree;
 	}
 	
 	public Comparable getSmallest()

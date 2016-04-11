@@ -10,7 +10,7 @@ public class PhoneBook extends BinarySearchTree{
 	public PhoneBook() throws FileNotFoundException{
 		super();
 		//TODO do the correct filepath
-		File file = new File("C:/Users/177864/");
+		File file = new File("C:/Users/16jc0080/downloads/phone.txt");
 		Scanner sc = new Scanner(file);
 		
 		while(sc.hasNext()){
@@ -31,7 +31,9 @@ public class PhoneBook extends BinarySearchTree{
 	public String lookUp(String name){
 		TreeNode root = getRoot();
 		PhoneEntry result = (PhoneEntry) lookUp(root, name).getValue();
-	
+		
+		if(result == null)
+			return "not found";
 		return result.getNumber();
 	}
 	
@@ -74,7 +76,6 @@ public class PhoneBook extends BinarySearchTree{
 	
 	public void delete(String name){
 		PhoneEntry p = (PhoneEntry) lookUp(getRoot(),name).getValue();
-		
 		remove(p);
 		
 	}
@@ -83,12 +84,15 @@ public class PhoneBook extends BinarySearchTree{
 		PhoneBook p = new PhoneBook();
 		p.display();
 		
-		System.out.println(p.lookUp("Shataka"));
-		System.out.println(p.revLookUp("8810712"));
+		System.out.println("lookup Shataka: "+p.lookUp("Shataka"));
+		System.out.println("lookup shatakaa's number (8810712): "+p.revLookUp("8810712"));
+		
+		System.out.println("\nDeleting Shatakaa + printing\n\n");
 		
 		p.delete("Shataka");
-		
 		p.display();
+		
+		
 	}
 	
 }
