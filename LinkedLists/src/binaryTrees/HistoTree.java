@@ -3,7 +3,7 @@ package binaryTrees;
 
 public class HistoTree
 {
-   private HistoNode root;
+	private HistoNode root;
 
 	public HistoTree( )
 	{
@@ -12,50 +12,71 @@ public class HistoTree
 
 	public void addData(Comparable data)
 	{
-		final HistoNode temp = search(data);
-		if (null != temp)
-			temp.setDataCount(temp.getDataCount() + 1);
+		if(root != null)
+			add(data, root);
 		else
-			root = add(data, root);
+			root = new HistoNode(data, 1, null, null);
 	}
 
 	private HistoNode add(Comparable data, HistoNode tree)
 	{
-		if (tree == null)
-			return tree = new HistoNode(data,1, null,null);
-		if (data.compareTo(tree.getData()) < 0)
+		if(tree == null){
+			tree = new HistoNode(data, 1, null, null);
+			return tree;
+		}
+
+		int dirTest = data.compareTo(tree.getData());
+
+		if(dirTest < 0)
 			tree.setLeft(add(data, tree.getLeft()));
-		else if (data.compareTo(tree.getData()) > 0)
+
+		else if(dirTest > 0)
 			tree.setRight(add(data, tree.getRight()));
+
+		else
+			tree.setDataCount(tree.getDataCount() + 1);
+
 		return tree;
 	}
 
 	public HistoNode search(Comparable data)
 	{
-		return search(data, root);
+		HistoNode ht = search(data, root);
+
+		if(ht != null)
+			return search(data, root);
+		
+		return new HistoNode(data + " not found", 0, null, null);
 	}
 
 	private HistoNode search(Comparable data, HistoNode tree)
 	{
-		if (tree == null || data.compareTo(tree.getData()) == 0)
+		if(tree == null)
+			return null;
+
+		int dirTest = data.compareTo(tree.getData());
+
+		if(dirTest < 0)
+			return search(data, tree.getLeft());
+
+		if(dirTest > 0)
+			return search(data, tree.getRight());
+
+		else
 			return tree;
-		return search(data, data.compareTo(tree.getData()) > 0 ? tree.getRight() : tree.getLeft());
 	}
 
 	public String toString()
 	{
+
 		return toString(root);
 	}
-	
-	public String toString(HistoNode yo) {
-		if (yo != null) {
-			System.out.println(yo.toString() + "\n");
-			toString(yo.getLeft());
-			toString(yo.getRight());
 
-		}
-		return "";
+	private String toString(HistoNode tree)
+	{
+		if(tree == null)
+			return "";
+
+		return tree.getData().toString() + ", " + tree.getDataCount() + " | " + toString(tree.getLeft()) + toString(tree.getRight());
 	}
-	
-	
 }

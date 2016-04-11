@@ -1,95 +1,94 @@
 package binaryTrees;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.Scanner;
 
-public class PhoneBook extends Object{
 
-	private Hashtable<Integer, LinkedList<PhoneEntry>> data;
-	private int num = 0;
-	public PhoneBook() {
-		this(100);
-	}
+
+public class PhoneBook extends BinarySearchTree{
 	
-	public PhoneBook(int numSlots) {
-		data = new Hashtable<Integer, LinkedList<PhoneEntry>>();
-		num = numSlots;
-	}
-
-	public void load() throws IOException {
-		BufferedReader k = new BufferedReader(new FileReader(new File("H:\\git\\at2015\\Christopher cushman\\bin\\cpclub\\phone.txt")));
-
-		while(k.ready()) {
-			Scanner s = new Scanner(k.readLine());
-			add(new PhoneEntry(s.next(), s.next()));
-
-		}
-	}
-	
-	public void add(PhoneEntry obj) {
-		int bucket = obj.hashCode() % num;
-		if(data.containsKey(bucket)) {
-			data.get(bucket).add(obj);
-			data.get(bucket).sort((x,y)->x.name.compareTo(y.name));
-		} else {
-			LinkedList<PhoneEntry> ll = new LinkedList<PhoneEntry>();
-			ll.add(obj);
-			ll.sort((x,y)->x.name.compareTo(y.name));
-			data.put(bucket, ll);
-		}
-	}
-	
-	public void changeNumber(String name, String number) {
-		for(Integer ll : data.keySet()) 
-			for(PhoneEntry p : data.get(ll))
-				if(p.name.equals(name))
-					p.number = number;
+	public PhoneBook() throws FileNotFoundException{
+		super();
+		//TODO do the correct filepath
+		File file = new File("C:/Users/177864/");
+		Scanner sc = new Scanner(file);
 		
-	}
-	public void display() {
-		for(int s : data.keySet()) {
-			System.out.println("Bucket: "+ s);
-			System.out.println(data.get(s).toString());
-			
+		while(sc.hasNext()){
+			add(new PhoneEntry(sc.nextLine()));
 		}
+		
+		sc.close();
+	}
+	
+	public void add(PhoneEntry a){
+		super.add(a);
+	}
+	
+	public void display(){
+		super.inOrder();
+	}
+	
+	public String lookUp(String name){
+		TreeNode root = getRoot();
+		PhoneEntry result = (PhoneEntry) lookUp(root, name).getValue();
+	
+		return result.getNumber();
+	}
+	
+	private TreeNode lookUp(TreeNode tree, String name){
+		if(tree == null)
+			return null;
 
+		PhoneEntry pe = (PhoneEntry) tree.getValue();
+		
+		if(pe.getName().equals(name))
+			return tree;
+
+		if(lookUp(tree.getLeft(), name) != null)
+			return lookUp(tree.getLeft(), name);
+		
+		return lookUp(tree.getRight(), name);
 	}
 	
-	public int getCapacity() {
-		return data.size();
+	public String revLookUp(String number){
+		TreeNode root = getRoot();
+		PhoneEntry result = (PhoneEntry) revLookUp(root, number).getValue();
+	
+		return result.getName();
 	}
 	
-	public int getSize() {
-		int size = 0;
-		for(int s : data.keySet())
-			size += data.get(s).size();
-		return size;
+	private TreeNode revLookUp(TreeNode tree, String number){
+		if(tree == null)
+			return null;
+
+		PhoneEntry pe = (PhoneEntry) tree.getValue();
+		
+		if(pe.getNumber().equals(number))
+			return tree;
+
+		if(revLookUp(tree.getLeft(), number) != null)
+			return revLookUp(tree.getLeft(), number);
+		
+		return revLookUp(tree.getRight(), number);
 	}
 	
-	public int getNullBuckets() {
-		return num - data.values().size();
-	}
-	
-	public LinkedList<PhoneEntry> getLongestList() {
-		LinkedList<PhoneEntry> yo = new LinkedList<PhoneEntry>();
-		for(LinkedList<PhoneEntry> ll : data.values())
-			yo = ll.size() > yo.size() ? ll : yo;
-		return yo;
-	}
-	
-	public String lookup(String name) {
-		for(Integer ll : data.keySet()) {
-		for(PhoneEntry p : data.get(ll))
-			if(p.name.equals(name))
-				return p.number;
-		}
-		return null;
+	public void delete(String name){
+		PhoneEntry p = (PhoneEntry) lookUp(getRoot(),name).getValue();
+		
+		remove(p);
 		
 	}
 	
+	public static void main(String[] args) throws FileNotFoundException{
+		PhoneBook p = new PhoneBook();
+		p.display();
+		
+		System.out.println(p.lookUp("Shataka"));
+		System.out.println(p.revLookUp("8810712"));
+		
+		p.delete("Shataka");
+		
+		p.display();
+	}
 	
 }

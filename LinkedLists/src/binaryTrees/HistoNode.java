@@ -1,4 +1,5 @@
 package binaryTrees;
+
 public class HistoNode
 {
 	private Comparable data;
@@ -54,10 +55,8 @@ public class HistoNode
 		right=rt;
 	}
 	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return data + ": " + dataCount;
+	public String toString(){
+		return data.toString();
 	}
 }
 
