@@ -29,24 +29,28 @@ public class YourPQ
 	
 	public Object getMin()
 	{
-		return "";
+		return pq.peek();
 	}
 	
 	public Object removeMin()
 	{
-		return "";
+		return pq.poll();
 	}
 	
 	public String getNaturalOrder()
 	{
 		String output="";
-
-
-
+		while(!pq.isEmpty())
+		{
+			output += pq.poll().toString();
+		}
 		return output;		
 	}
 
 	//write a toString method
-	
+	public String toString()
+	{
+		
+	}
 	
 }
