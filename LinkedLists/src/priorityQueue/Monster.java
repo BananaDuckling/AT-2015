@@ -5,7 +5,7 @@ public class Monster implements Comparable<Monster> {
 	
 	public String toString()
 	{
-		return "height: "+height+"\nweight: "+weight+"\nage: "+age+"\n";
+		return "height: "+height+"\nweight: "+weight+"\nage: "+age+"\n\n";
 	}
 	
 	public Monster(int h, int w, int a)

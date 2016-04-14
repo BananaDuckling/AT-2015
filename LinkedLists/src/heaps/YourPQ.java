@@ -10,21 +10,20 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.PriorityQueue;
-
 import priorityQueue.Monster;
 
 public class YourPQ
 {
-	private Queue pq;
+	private BinaryHeap h;
 
 	public YourPQ()
 	{
-		pq = new PriorityQueue<Monster>();
+		h = new BinaryHeap();
 	}
 
 	public void add(Object obj)
 	{
-		pq.offer(obj);
+		h.add(obj);
 	}
 	
 	public Object getMin()
@@ -50,7 +49,8 @@ public class YourPQ
 	//write a toString method
 	public String toString()
 	{
-		
+		String ret = getNaturalOrder();
+		return ret;
 	}
 	
 }
