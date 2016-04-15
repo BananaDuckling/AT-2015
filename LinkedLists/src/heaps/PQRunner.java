@@ -1,4 +1,4 @@
-//© A+ Computer Science  -  www.apluscompsci.com
+package heaps;
 //Name -
 //Date -
 //Class - 

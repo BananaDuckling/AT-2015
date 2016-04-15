@@ -1,8 +1,4 @@
-//© A+ Computer Science  -  www.apluscompsci.com
-//Name -
-//Date -
-//Class - 
-//Lab  -
+package heaps;
 
 import java.util.Queue;
 import java.util.Arrays;
@@ -14,16 +10,16 @@ import priorityQueue.Monster;
 
 public class YourPQ
 {
-	private BinaryHeap h;
+	private PriorityQueue pq;
 
 	public YourPQ()
 	{
-		h = new BinaryHeap();
+		pq = new PriorityQueue();
 	}
 
 	public void add(Object obj)
 	{
-		h.add(obj);
+		pq.add(obj);
 	}
 	
 	public Object getMin()
@@ -38,11 +34,15 @@ public class YourPQ
 	
 	public String getNaturalOrder()
 	{
+		PriorityQueue temp = new PriorityQueue();
 		String output="";
 		while(!pq.isEmpty())
 		{
-			output += pq.poll().toString();
+			Object o = pq.poll();
+			output += o.toString();
+			temp.add(o);
 		}
+		pq = temp;
 		return output;		
 	}
 
