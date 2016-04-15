@@ -10,16 +10,16 @@ import priorityQueue.Monster;
 
 public class YourPQ
 {
-	private PriorityQueue pq;
+	private PriorityQueue<Monster> pq;
 
 	public YourPQ()
 	{
-		pq = new PriorityQueue();
+		pq = new PriorityQueue<Monster>();
 	}
 
 	public void add(Object obj)
 	{
-		pq.add(obj);
+		pq.add((Monster)obj);
 	}
 	
 	public Object getMin()
@@ -38,9 +38,9 @@ public class YourPQ
 		String output="";
 		while(!pq.isEmpty())
 		{
-			Object o = pq.poll();
-			output += o.toString();
-			temp.add(o);
+			Monster m = pq.poll();
+			output += m.toString();
+			temp.add(m);
 		}
 		pq = temp;
 		return output;		
