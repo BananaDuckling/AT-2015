@@ -2,80 +2,62 @@ package binaryTrees;
 
 public class MorseCode {
 
-	private static final String[] LETTERS = "0_9O. 8M Q G Z7T Y K C N X D B6/1J W P A   R L E2- U F I3V S4H5".split("");
-	BinarySearchTree tree;
-	
-	public MorseCode()
-	{
-		tree = new BalancedTree(LETTERS);
+	private static final char[] data = { ' ', 'T', 'E', 'M', 'N', 'A', 'I',
+			'O', 'G', 'K', 'D', 'W', 'R', 'U', 'S', '_', '.', 'Q', 'Z', 'Y',
+			'C', 'X', 'B', 'J', 'P', ' ', 'L', '-', 'F', 'V', 'H', '0', '9',
+			' ', '8', ' ', ' ', ' ', '7', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+			'6', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '2', ' ', ' ', ' ',
+			'3', ' ', '4', '5' };
+
+	private static final String[] morse = { ".-", "-...", "-.-.", "-..", ".",
+			"..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.",
+			"---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--",
+			"-..-", "-.--", "--.." };
+
+	private static String decode(String str, int index) {
+		if (str.isEmpty() || index >= data.length)
+			return " done";
+		String kek = str.substring(0, 1);
+		if (kek.equals("_") || kek.equals("-"))
+			return decode(str.substring(1), index * 2 + 1);
+		else if (kek.equals("."))
+			return decode(str.substring(1), (index + 1) * 2);
+		else if (kek.equals(" "))
+			return data[index] + decode(str.substring(1), 0);
+		else if (kek.equals("/"))
+			return data[index] + decode(str.substring(1), 0);
+		else
+			return "";
+
 	}
 	
-	public String decode(String s)
+	public static void toMorse(String input)
 	{
-		/*this regex is for space or forwards slash
-		 * space designates the end of a letter
-		 * slash marks the end of a word.
-		 */
-		String[] arr = s.split("/");
-		String ret = "";
+		for(String word : input.split(" "))
+		{
+			for(char c : word.toCharArray())
+				System.out.print(morse[c - 65]+" ");
+			System.out.print("/ ");
+		}
+	}
+
+	public static String decode(String str) {
+		if (str.trim().endsWith("/"))
+			return decode(str.trim(), 0);
+		else {
+			String arr = str.trim().concat("/");
+			return decode(arr, 0);
+		}
+	}
+
+	public static void main(String[] args) {
+		System.out
+				.println(decode("- .... .. ... / - --- --- -.- / .- / .-.. --- -. --. / - .. -- ."));
+		System.out
+				.println(decode(".... .- .... .- .... .- .... .- ...."));
 		
-		for(String input : arr)
-		{
-			TreeNode t = new TreeNode();
-			String temp = "";
-			for(int x = 0; x < input.length(); x++)
-			{
-				if(input.substring(x,x+1).equals("-"))
-					t = tree.getLeft();
-				else if(input.substring(x, x+1).equals("."))
-					t = tree.getRight();
-				ret += t.toString() + " ";
-			}
-		}
-		return ret;
+		System.out.println("To Morse: \"Morse Code\"");
+		toMorse("MORSE CODE");
 	}
-	
-	public String encode(String s)
-	{
-		String[] arr = s.split(" ");
-		String ret = "";
-		TreeNode t = this.tree.getRoot();
-		for(String input : arr)
-		{
-			for(int x = 0; x < input.length(); x++)
-			{
-				//add space after to indicate letter break
-				nodeSequence(input.substring(x, x+1), t);
-			}
-			//add slash after to indicate word break
-			ret += "/";
-		}
-		return ret;
-	}
-	
-	private void nodeSequence(String search, TreeNode t)
-	{
-		nodeSequence(search, t, "");
-	}
-	private void nodeSequence(String search, TreeNode t, String ret)
-	{
-		System.out.println("search: "+search);
-		System.out.println("value: "+t.getValue());
-		if(t != null)
-		{
-			//search is one letter, so if it is found, print ret
-			if(search.equalsIgnoreCase((String) (t.getValue())))
-			
-			
-			nodeSequence(search, t.getLeft(), ret + "-");
-			nodeSequence(search, t.getRight(), ret += ".");
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		MorseCode morse = new MorseCode();
-		System.out.println(morse.encode("Justin"));
-		
-	}
+
 }
