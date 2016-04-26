@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Set;
+import java.util.ArrayList;
 
 public class Graph
 {
@@ -43,17 +44,31 @@ public class Graph
 
 	public boolean contains(String letter)
 	{
-		map.containsKey(letter);
+		return map.containsKey(letter);
 	}
-
-	public boolean check(String first, String second, String placesUsed)
+	public void check(String first, String second)
 	{
-		if(!contains(first) || !contains(second))
-			return false;
-		
+		check(first, second, new ArrayList<String>());
+	}
+	public void check(String one, String two, ArrayList<String> been) {
+		if (!match) {
+			if (map.get(one).contains(two))
+				match = true;
+			else {
+				HashSet<String> set = map.get(one);
+				for (String x : set)
+					if (!been.contains(x)) {
+						been.add(x);
+						check(x, two, been);
+					}
+			}
+		}
 	}
 	public String toString()
 	{
-		for(Map.Entry<String,Integer> entry : treeMap.entrySet())
+		for(Map.Entry<String,Set<String>> entry : map.entrySet())
+		{
+			
+		}
 	}
 }
