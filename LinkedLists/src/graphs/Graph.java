@@ -14,9 +14,10 @@ public class Graph
 {
 	private TreeMap<String, Set<String>> map;
 	private boolean yesOrNo;
-
+	private boolean match;
 	public Graph(String line)
 	{
+		match = false;
 		map = new TreeMap<String, Set<String>>();
 		String[] input = line.split(" ");
 		for(String s : input)
@@ -50,25 +51,36 @@ public class Graph
 	{
 		check(first, second, new ArrayList<String>());
 	}
-	public void check(String one, String two, ArrayList<String> been) {
-		if (!match) {
+	public void check(String one, String two, ArrayList<String> been) 
+	{
+		if (!match) 
+		{
 			if (map.get(one).contains(two))
 				match = true;
-			else {
-				HashSet<String> set = map.get(one);
-				for (String x : set)
-					if (!been.contains(x)) {
-						been.add(x);
-						check(x, two, been);
+			else 
+			{
+				Set<String> set = map.get(one);
+				for (String s : set) 
+					if (!been.contains(s)) 
+					{
+						been.add(s);
+						check(s, two, been);
 					}
 			}
 		}
 	}
 	public String toString()
 	{
+		String ret = "";
 		for(Map.Entry<String,Set<String>> entry : map.entrySet())
 		{
-			
+			ret += entry.getKey()+":[ ";
+			for(String s : map.get(entry.getKey()))
+			{
+				ret += s + " ";
+			}
+			ret += "]\n";
 		}
+		return ret;
 	}
 }
