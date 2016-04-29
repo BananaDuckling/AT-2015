@@ -14,16 +14,16 @@ import java.util.ArrayList;
 public class Graph
 {
 	private TreeMap<String, Set<String>> map;
-	private boolean yesOrNo;
-	private boolean match = false;
+	private boolean yesOrNo = false;
 	public Graph(String line)
 	{
-		map = new TreeMap<String, Set<String>>();
 		String[] input = line.split(" ");
+		map = new TreeMap<String, Set<String>>();
 		for(String s : input)
 		{
 			String firstLetter = s.substring(0,1);
 			String secondLetter = s.substring(1,2);
+			
 			if(!map.containsKey(firstLetter))
 			{
 				Set<String> newSet = new TreeSet<String>();
@@ -44,27 +44,29 @@ public class Graph
 	}
 	public boolean match()
 	{
-		return match;
+		return yesOrNo;
 	}
 	public boolean contains(String letter)
 	{
 		return map.containsKey(letter);
 	}
-	public void check(String one, String two, ArrayList<String> been) 
+	public void check(String firstLetter, String secondLetter, ArrayList<String> been) 
 	{
-		if (!match) 
+		if (!yesOrNo) 
 		{
-			if (map.get(one).contains(two))
-				match = true;
+			if (map.get(firstLetter).contains(secondLetter))
+				yesOrNo = true;
 			else 
 			{
-				Set<String> set = map.get(one);
+				Set<String> set = map.get(firstLetter);
 				for (String s : set) 
+				{
 					if (!been.contains(s)) 
 					{
 						been.add(s);
-						check(s, two, been);
+						check(s, secondLetter, been);
 					}
+				}
 			}
 		}
 	}
