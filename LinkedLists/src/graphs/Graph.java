@@ -4,6 +4,7 @@ package graphs;
 //Class -  
 //Lab  -
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -14,10 +15,9 @@ public class Graph
 {
 	private TreeMap<String, Set<String>> map;
 	private boolean yesOrNo;
-	private boolean match;
+	private boolean match = false;
 	public Graph(String line)
 	{
-		match = false;
 		map = new TreeMap<String, Set<String>>();
 		String[] input = line.split(" ");
 		for(String s : input)
@@ -42,14 +42,13 @@ public class Graph
 				map.get(secondLetter).add(firstLetter);
 		}
 	}
-
+	public boolean match()
+	{
+		return match;
+	}
 	public boolean contains(String letter)
 	{
 		return map.containsKey(letter);
-	}
-	public void check(String first, String second)
-	{
-		check(first, second, new ArrayList<String>());
 	}
 	public void check(String one, String two, ArrayList<String> been) 
 	{
