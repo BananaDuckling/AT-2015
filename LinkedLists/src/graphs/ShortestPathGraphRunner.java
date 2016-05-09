@@ -1,9 +1,10 @@
 package graphs;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-
 import static java.lang.System.*;
 
 public class ShortestPathGraphRunner {
@@ -24,7 +25,8 @@ public class ShortestPathGraphRunner {
 					+ "["+check.substring(1) + "] in " + (g.shortest()-1) + " steps");
 			else
 				System.out.println("["+check.substring(0, 1)+"] does not connect to "+
-			check.substring(1));
+			check.substring(1));	
+
 		}
 	}
 }

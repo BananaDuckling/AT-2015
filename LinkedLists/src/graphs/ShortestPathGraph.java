@@ -14,34 +14,28 @@ public class ShortestPathGraph {
 	private boolean yesOrNo = false;
 	private int shortest = 0;
 
-	public ShortestPathGraph(String line) 
-	{
+	public ShortestPathGraph(String line) {
 		map = new TreeMap<String, HashSet<String>>();
-		String[] inputString = line.split(" ");
-		
-		for (int x = 1; x < inputString.length; x++) {
-			if (map.containsKey(inputString[x].substring(0, 1))) {
-				HashSet<String> t = map.get(inputString[x].substring(0, 1));
-				t.add(inputString[x].substring(1));
-				map.put(inputString[x].substring(0, 1), t);
-			} 
-			else 
-			{
+		String[] a = line.split(" ");
+		for (int i = 1; i < a.length; i++) {
+			if (map.containsKey(a[i].substring(0, 1))) {
+				HashSet<String> t = map.get(a[i].substring(0, 1));
+				t.add(a[i].substring(1));
+				map.put(a[i].substring(0, 1), t);
+			} else {
 				HashSet<String> t = new HashSet<String>();
-				t.add(inputString[x].substring(1));
-				map.put(inputString[x].substring(0, 1), t);
+				t.add(a[i].substring(1));
+				map.put(a[i].substring(0, 1), t);
 			}
 
-			if (map.containsKey(inputString[x].substring(1))) {
-				HashSet<String> t = map.get(inputString[x].substring(1));
-				t.add(inputString[x].substring(0, 1));
-				map.put(inputString[x].substring(1), t);
-			} 
-			else 
-			{
+			if (map.containsKey(a[i].substring(1))) {
+				HashSet<String> t = map.get(a[i].substring(1));
+				t.add(a[i].substring(0, 1));
+				map.put(a[i].substring(1), t);
+			} else {
 				HashSet<String> t = new HashSet<String>();
-				t.add(inputString[x].substring(0, 1));
-				map.put(inputString[x].substring(1), t);
+				t.add(a[i].substring(0, 1));
+				map.put(a[i].substring(1), t);
 			}
 		}
 	}
@@ -59,7 +53,8 @@ public class ShortestPathGraph {
 		return shortest;
 	}
 
-	public void check(String first, String second, ArrayList<String> been, int steps) {
+	public void check(String first, String second, ArrayList<String> been, int steps) 
+	{
 			if (map.get(first).contains(second)) 
 			{
 				yesOrNo = true;
@@ -81,5 +76,5 @@ public class ShortestPathGraph {
 						been.remove(x);
 				}
 			}
+		}
 	}
-}
