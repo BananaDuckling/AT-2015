@@ -12,7 +12,7 @@ public class Hadhadhad {
 		for(int x = 0; x<100; x++)
 		{
 			//6 + 2*pInc + pCorr
-			pInc = new BigInteger()
+			pInc = pInc.
 			pCorr = place;
 			System.out.println(place+"");
 			incorrects.add(new BigInteger(place+""));
