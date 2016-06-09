@@ -31,11 +31,9 @@ import com.jsyn.util.VoiceAllocator;
 import com.softsynth.jsyn.EqualTemperedTuning;
 import com.softsynth.shared.time.TimeStamp;
 
-/***************************************************************
+/*
  * Play notes using a WaveShapingVoice. Allocate the notes using a
  * VoiceAllocator.
- * 
- * @author Phil Burk (C) 2010 Mobileer Inc
  */
 public class ChebyshevSong extends JApplet implements Runnable
 {
@@ -54,12 +52,12 @@ public class ChebyshevSong extends JApplet implements Runnable
 	private UnitOscillator osc;
 	private LinearRamp lag;
 
-	/* Can be run as either an application or as an applet. */
+	// Can be run as either an application or as an applet. 
 	public static void main( String args[] )
 	{
 		ChebyshevSong applet = new ChebyshevSong();
 		JAppletFrame frame = new JAppletFrame( "ChebyshevSong", applet );
-		frame.setSize( 1000, 1000 );
+		frame.setSize(400,300);
 		frame.setVisible( true );
 		frame.test();
 	}
@@ -165,12 +163,6 @@ public class ChebyshevSong extends JApplet implements Runnable
 	{
 		allocator.noteOff( noteNumber, new TimeStamp( time ) );
 	}
-
-	/**
-	 * 
-	 * @param time used to create timestamp object as parameter
-	 * @param noteNumber 
-	 */
 	private void noteOn( double time, int noteNumber )
 	{
 		double frequency = indexToFrequency( noteNumber );
@@ -198,7 +190,8 @@ public class ChebyshevSong extends JApplet implements Runnable
 			do
 			{
 				// on every measure, maybe repeat previous pattern
-				if( (beatIndex & 7) == 0 )
+				//original bitwise func int was 7
+				if( (beatIndex & 5) == 0 )
 				{
 					if( (Math.random() < (1.0 / 2.0)) )
 						pseudo.setSeed( savedSeed );
