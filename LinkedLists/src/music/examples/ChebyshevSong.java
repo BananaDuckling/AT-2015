@@ -1,16 +1,31 @@
 package music.examples;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JApplet;
+import javax.swing.JPanel;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.event.*;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.instruments.WaveShapingVoice;
 import com.jsyn.scope.AudioScope;
+import com.jsyn.swing.ExponentialRangeModel;
 import com.jsyn.swing.JAppletFrame;
+import com.jsyn.swing.PortControllerFactory;
+import com.jsyn.swing.PortModelFactory;
+import com.jsyn.swing.RotaryTextController;
 import com.jsyn.unitgen.Add;
 import com.jsyn.unitgen.LineOut;
+import com.jsyn.unitgen.LinearRamp;
+import com.jsyn.unitgen.SineOscillator;
+import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.util.PseudoRandom;
 import com.jsyn.util.VoiceAllocator;
 import com.softsynth.jsyn.EqualTemperedTuning;
@@ -35,29 +50,63 @@ public class ChebyshevSong extends JApplet implements Runnable
 	private final static int MAX_NOTES = 5;
 	private VoiceAllocator allocator;
 	private final static int scale[] = {0,2,4,7,9}; // pentatonic scale
+	
+	private UnitOscillator osc;
+	private LinearRamp lag;
 
 	/* Can be run as either an application or as an applet. */
 	public static void main( String args[] )
 	{
 		ChebyshevSong applet = new ChebyshevSong();
 		JAppletFrame frame = new JAppletFrame( "ChebyshevSong", applet );
-		frame.setSize( 640, 300 );
+		frame.setSize( 1000, 1000 );
 		frame.setVisible( true );
 		frame.test();
 	}
+	public void init()
+	{
+		synth = JSyn.createSynthesizer();
+		
+		// Add a tone generator.
+		synth.add( osc = new SineOscillator() );
+		// Add a lag to smooth out amplitude changes and avoid pops.
+		synth.add( lag = new LinearRamp() );
+		// Add an output mixer.
+		synth.add( lineOut = new LineOut() );
+		// Connect the oscillator to the output.
+		osc.output.connect( 0, lineOut.input, 0 );
+		
+		// Set the minimum, current and maximum values for the port.
+		lag.output.connect( osc.amplitude );
+		lag.input.setup( 0.0, 0.25, 1.0 );
+		lag.time.set(0.2);
+
+		// Arrange the faders in a stack.
+		setLayout( new GridLayout( 0, 1 ) );
+
+		ExponentialRangeModel amplitude = PortModelFactory.createExponentialModel( lag.input );
+		RotaryTextController knob = new RotaryTextController( amplitude, 5 );
+		JPanel knobPanel = new JPanel();
+		knobPanel.add( knob );
+		add( knobPanel );
+
+		osc.frequency.setup( 50.0, 300.0, 10000.0 );
+		add( PortControllerFactory.createExponentialPortSlider( osc.frequency ) );
+		validate();
+	}
+
 
 	/*
 	 * Setup synthesis.
 	 */
 	public void start()
 	{
-		setLayout( new BorderLayout() );
-
-		synth = JSyn.createSynthesizer();
+		//setLayout( new BorderLayout() );
+		synth.start();
 
 		// Use a submix so we can show it on the scope.
 		synth.add( mixer = new Add() );
-		synth.add( lineOut = new LineOut() );
+		synth.add( lineOut );
 
 		mixer.output.connect( 0, lineOut.input, 0 );
 		mixer.output.connect( 0, lineOut.input, 1 );

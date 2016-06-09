@@ -15,6 +15,7 @@ import com.jsyn.swing.RotaryTextController;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.LinearRamp;
 import com.jsyn.unitgen.SawtoothOscillatorBL;
+import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 
 /**
@@ -35,8 +36,8 @@ public class Dials extends JApplet
 	public static void main( String args[] )
 	{
 		Dials applet = new Dials();
-		JAppletFrame frame = new JAppletFrame( "SawFaders", applet );
-		frame.setSize( 440, 200 );
+		JAppletFrame frame = new JAppletFrame( "Generator", applet );
+		frame.setSize( 440, 300 );
 		frame.setVisible(true);
 		frame.test();
 	}
@@ -46,24 +47,25 @@ public class Dials extends JApplet
 		synth = JSyn.createSynthesizer();
 		
 		// Add a tone generator.
-		synth.add( osc = new SawtoothOscillatorBL() );
+		synth.add( osc = new SineOscillator() );
 		// Add a lag to smooth out amplitude changes and avoid pops.
 		synth.add( lag = new LinearRamp() );
 		// Add an output mixer.
 		synth.add( lineOut = new LineOut() );
 		// Connect the oscillator to the output.
 		osc.output.connect( 0, lineOut.input, 0 );
+		osc.output.connect( 0, lineOut.input, 1 );
 		
 		// Set the minimum, current and maximum values for the port.
 		lag.output.connect( osc.amplitude );
-		lag.input.setup( 0.0, 0.5, 1.0 );
-		lag.time.set(  0.2 );
+		lag.input.setup( 0.0, 0.25, 1.0 );
+		lag.time.set(0.2);
 
 		// Arrange the faders in a stack.
 		setLayout( new GridLayout( 0, 1 ) );
 
-		ExponentialRangeModel amplitudeModel = PortModelFactory.createExponentialModel( lag.input );
-		RotaryTextController knob = new RotaryTextController( amplitudeModel, 5 );
+		ExponentialRangeModel amplitude = PortModelFactory.createExponentialModel( lag.input );
+		RotaryTextController knob = new RotaryTextController( amplitude, 5 );
 		JPanel knobPanel = new JPanel();
 		knobPanel.add( knob );
 		add( knobPanel );
