@@ -1,4 +1,4 @@
-package music.examples;
+package music;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -8,10 +8,8 @@ import javax.swing.JPanel;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.event.*;
-
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.instruments.WaveShapingVoice;
@@ -35,9 +33,9 @@ import com.softsynth.shared.time.TimeStamp;
  * Play notes using a WaveShapingVoice. Allocate the notes using a
  * VoiceAllocator.
  */
-public class ChebyshevSong extends JApplet implements Runnable
+public class RandomMusic extends JApplet implements Runnable
 {
-	private static final long serialVersionUID = -7459137388629333223L;
+	//private static final long serialVersionUID = -7459137388629333223L;
 	private Synthesizer synth;
 	private Add mixer;
 	private LineOut lineOut;
@@ -47,16 +45,19 @@ public class ChebyshevSong extends JApplet implements Runnable
 	private final static int MAX_VOICES = 8;
 	private final static int MAX_NOTES = 5;
 	private VoiceAllocator allocator;
-	private final static int scale[] = {0,2,4,7,9}; // pentatonic scale
+	private final static int[] scale = {0,2,4,7,9}; // major pentatonic scale
+	//private final static int[] scale = {0,3,5,7,10};	//minor pentatonic scale/ gapped blues
+	//private final static int[] scale = {0,2,5,4,7,9};	//major scale (Ionian)
+	//private final static int[] scale = {0,2,3,5,7,8};	//minor scale (Aeolian)
 	
-	private UnitOscillator osc;
+	private WaveShapingVoice voice;
 	private LinearRamp lag;
 
 	// Can be run as either an application or as an applet. 
 	public static void main( String args[] )
 	{
-		ChebyshevSong applet = new ChebyshevSong();
-		JAppletFrame frame = new JAppletFrame( "ChebyshevSong", applet );
+		RandomMusic applet = new RandomMusic();
+		JAppletFrame frame = new JAppletFrame( "Random Music", applet );
 		frame.setSize(400,300);
 		frame.setVisible( true );
 		frame.test();
@@ -64,33 +65,32 @@ public class ChebyshevSong extends JApplet implements Runnable
 	public void init()
 	{
 		synth = JSyn.createSynthesizer();
-		
+		setLayout( new GridLayout( 0, 1 ) );
 		// Add a tone generator.
-		synth.add( osc = new SineOscillator() );
+		//synth.add( osc = new SineOscillator() );
 		// Add a lag to smooth out amplitude changes and avoid pops.
-		synth.add( lag = new LinearRamp() );
+		//synth.add( lag = new LinearRamp() );
 		// Add an output mixer.
 		synth.add( lineOut = new LineOut() );
 		// Connect the oscillator to the output.
-		osc.output.connect( 0, lineOut.input, 0 );
+		//osc.output.connect( 0, lineOut.input, 0 );
 		
 		// Set the minimum, current and maximum values for the port.
-		lag.output.connect( osc.amplitude );
-		lag.input.setup( 0.0, 0.25, 1.0 );
-		lag.time.set(0.2);
+//		lag.output.connect( osc.amplitude );
+//		lag.input.setup( 0.0, 0.25, 1.0 );
+//		lag.time.set(0.2);
 
 		// Arrange the faders in a stack.
-		setLayout( new GridLayout( 0, 1 ) );
 
-		ExponentialRangeModel amplitude = PortModelFactory.createExponentialModel( lag.input );
-		RotaryTextController knob = new RotaryTextController( amplitude, 5 );
-		JPanel knobPanel = new JPanel();
-		knobPanel.add( knob );
-		add( knobPanel );
+//		ExponentialRangeModel amplitude = PortModelFactory.createExponentialModel( lag.input );
+//		RotaryTextController knob = new RotaryTextController( amplitude, 5 );
+//		JPanel knobPanel = new JPanel();
+//		knobPanel.add( knob );
+//		add( knobPanel );
 
-		osc.frequency.setup( 50.0, 300.0, 10000.0 );
-		add( PortControllerFactory.createExponentialPortSlider( osc.frequency ) );
-		validate();
+//		osc.frequency.setup( 50.0, 300.0, 10000.0 );
+//		add( PortControllerFactory.createExponentialPortSlider( osc.frequency ) );
+//		validate();
 	}
 
 
@@ -99,25 +99,42 @@ public class ChebyshevSong extends JApplet implements Runnable
 	 */
 	public void start()
 	{
-		//setLayout( new BorderLayout() );
-		synth.start();
+
+
+//		ExponentialRangeModel amplitude = PortModelFactory.createExponentialModel( lag.input );
+//		RotaryTextController knob = new RotaryTextController( amplitude, 5 );
+//		JPanel knobPanel = new JPanel();
+//		knobPanel.add( knob );
+//		add( knobPanel );
+		
+//		voice.frequency.setup( 50.0, 300.0, 10000.0 );
+//		add( PortControllerFactory.createExponentialPortSlider( voice.frequency ) );
+//		validate();
+
+
+	
 
 		// Use a submix so we can show it on the scope.
-		synth.add( mixer = new Add() );
-		synth.add( lineOut );
-
+		mixer = new Add();
+		synth.add(mixer);
+		synth.add(lineOut);
+		
+		//two line outs so we can hear in stereo. 0 is left channel, 1 is right channel
 		mixer.output.connect( 0, lineOut.input, 0 );
 		mixer.output.connect( 0, lineOut.input, 1 );
 
 		WaveShapingVoice[] voices = new WaveShapingVoice[MAX_VOICES];
 		for( int i = 0; i < MAX_VOICES; i++ )
 		{
-			WaveShapingVoice voice = new WaveShapingVoice();
-			synth.add( voice );
+			voice = new WaveShapingVoice();
+			synth.add(voice);
 			voice.usePreset(0);
+			
 			voice.getOutput().connect(mixer.inputA);
 			voices[i] = voice;
+			validate();
 		}
+		add( PortControllerFactory.createExponentialPortSlider( voice.frequency ) );
 		allocator = new VoiceAllocator( voices );
 		
 		// Start synthesizer using default stereo output at 44100 Hz.
@@ -128,7 +145,7 @@ public class ChebyshevSong extends JApplet implements Runnable
 		scope = new AudioScope( synth );
 		scope.addProbe( mixer.output );
 		scope.setTriggerMode( AudioScope.TriggerMode.NORMAL );
-		scope.getView().setControlsVisible( false );
+		scope.getView().setControlsVisible(true);
 		add( BorderLayout.CENTER, scope.getView() );
 		scope.start();
 
@@ -168,6 +185,7 @@ public class ChebyshevSong extends JApplet implements Runnable
 		double frequency = indexToFrequency( noteNumber );
 		double amplitude = 0.1;
 		TimeStamp timeStamp = new TimeStamp( time );
+		
 		allocator.noteOn( noteNumber, frequency, amplitude, timeStamp );
 		allocator.setPort( noteNumber, "Range" , 0.7, synth.createTimeStamp() );
 	}
@@ -191,7 +209,7 @@ public class ChebyshevSong extends JApplet implements Runnable
 			{
 				// on every measure, maybe repeat previous pattern
 				//original bitwise func int was 7
-				if( (beatIndex & 5) == 0 )
+				if( (beatIndex & 7) == 0 )
 				{
 					if( (Math.random() < (1.0 / 2.0)) )
 						pseudo.setSeed( savedSeed );
